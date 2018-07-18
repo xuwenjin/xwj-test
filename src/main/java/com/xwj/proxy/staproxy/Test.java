@@ -15,5 +15,10 @@ public class Test {
 		String info = sub.say("xwj", 26);
 		System.out.println(info);
 	}
+	
+//	public static void main(String[] args) {
+//		String companyId = null;
+//		System.out.println(Arrays.asList(companyId));
+//	}
 
 }
