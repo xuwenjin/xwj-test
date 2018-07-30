@@ -9,6 +9,14 @@ public class Apple {
 
 	public Apple() {
 	}
+	
+	public Apple(int weight, String color) {
+		super();
+		this.weight = weight;
+		this.color = color;
+	}
+
+
 
 	public Apple(int weight) {
 		super();
