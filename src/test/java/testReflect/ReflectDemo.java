@@ -1,4 +1,4 @@
-package test;
+package testReflect;
 
 import java.beans.PropertyDescriptor;
 

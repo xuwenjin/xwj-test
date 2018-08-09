@@ -15,8 +15,6 @@
 		<spring.version>4.2.5.RELEASE</spring.version>
 	</properties>
 
-
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -34,6 +32,18 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.8</version>
+		</dependency>
+		<!-- google.guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>22.0</version>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.2</version>
 		</dependency>
 	</dependencies>
 

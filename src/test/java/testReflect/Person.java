@@ -1,4 +1,4 @@
-package test;
+package testReflect;
 
 public class Person {
 	

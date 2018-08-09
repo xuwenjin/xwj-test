@@ -4,11 +4,24 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * 实体类
  * 
  * @author xuwenjin
  */
+@Getter
+@Setter
+@Builder(toBuilder = true)
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class XwjUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,60 +37,11 @@ public class XwjUser implements Serializable {
 
 	private List<Integer> intList;
 
-	public XwjUser() {
-		super();
-	}
-
 	public XwjUser(int id, String message, Date sendTime) {
 		super();
 		this.id = id;
 		this.message = message;
 		this.sendTime = sendTime;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Date getSendTime() {
-		return sendTime;
-	}
-
-	public void setSendTime(Date sendTime) {
-		this.sendTime = sendTime;
-	}
-
-	public String getNodeName() {
-		return NodeName;
-	}
-
-	public void setNodeName(String nodeName) {
-		NodeName = nodeName;
-	}
-
-	public List<Integer> getIntList() {
-		return intList;
-	}
-
-	public void setIntList(List<Integer> intList) {
-		this.intList = intList;
-	}
-
-	@Override
-	public String toString() {
-		return "XwjUser [id=" + id + ", message=" + message + ", sendTime=" + sendTime + ", intList=" + intList + "]";
 	}
 
 }
