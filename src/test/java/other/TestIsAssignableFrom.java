@@ -19,10 +19,10 @@ public class TestIsAssignableFrom {
 	public static void main(String[] args) {
 		Class parentClass = Parent.class;
 		Class sonClass = Son.class;
-		System.out.println(parentClass.isAssignableFrom(sonClass));
-		System.out.println(parentClass.isAssignableFrom(parentClass));
-		System.out.println(sonClass.isAssignableFrom(parentClass));
-		System.out.println(sonClass.isAssignableFrom(sonClass));
+		System.out.println(parentClass.isAssignableFrom(sonClass)); //true
+		System.out.println(parentClass.isAssignableFrom(parentClass)); //true
+		System.out.println(sonClass.isAssignableFrom(parentClass)); //false
+		System.out.println(sonClass.isAssignableFrom(sonClass)); //true
 	}
 
 }
