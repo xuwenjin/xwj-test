@@ -11,6 +11,8 @@ import java.util.Map;
 public class TestMap {
 
 	/**
+	 * capacity table当前容量，为2的幂次
+	 * 
 	 * threshold 阈值。当table=={}时，该值为初始容量（初始容量默认为16）；当table被填充了，也就是为table分配内存空间后，threshold一般为
 	 * capacity*loadFactory。当超过阈值时，table容量会自动扩大两倍
 	 * 
