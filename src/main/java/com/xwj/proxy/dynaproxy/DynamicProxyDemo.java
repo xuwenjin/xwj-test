@@ -1,7 +1,7 @@
 package com.xwj.proxy.dynaproxy;
 
+import com.xwj.proxy.RealSubject;
 import com.xwj.proxy.Subject;
-import com.xwj.proxy.staproxy.RealSubject;
 
 /**
  * 测试动态代理
@@ -15,8 +15,7 @@ public class DynamicProxyDemo {
 		MyHandler handler = new MyHandler();
 		//绑定实际对象
 		Subject sub = (Subject) handler.bind(new RealSubject());
-		String info = sub.say("xuwenjin", 25);
-		System.out.println(info);
+		sub.say("xuwenjin", 25);
 	}
 
 }

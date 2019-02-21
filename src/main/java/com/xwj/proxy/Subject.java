@@ -7,6 +7,6 @@ package com.xwj.proxy;
  */
 public interface Subject {
 	
-	String say(String name, int age);
+	void say(String name, int age);
 
 }

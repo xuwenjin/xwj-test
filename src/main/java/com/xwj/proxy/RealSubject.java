@@ -10,16 +10,8 @@ import com.xwj.proxy.Subject;
 public class RealSubject implements Subject {
 
 	@Override
-	public String say(String name, int age) {
-		return "name:" + name + " age:" + age;
-	}
-	
-	public void eat(){
-		System.out.println("我要吃");
-	}
-	
-	public void drink(){
-		System.out.println("我要喝");
+	public void say(String name, int age) {
+		System.out.println("我是真实对象~~~");
 	}
 	
 }

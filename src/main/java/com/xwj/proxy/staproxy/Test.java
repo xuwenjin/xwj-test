@@ -12,13 +12,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Subject sub = new Proxy(new RealSubject());
-		String info = sub.say("xwj", 26);
-		System.out.println(info);
+		sub.say("xwj", 26);
 	}
 	
-//	public static void main(String[] args) {
-//		String companyId = null;
-//		System.out.println(Arrays.asList(companyId));
-//	}
-
 }

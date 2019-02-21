@@ -16,8 +16,7 @@ public class Test {
 		// 绑定实际对象
 		Subject sub = (Subject) handler.bind(new RealSubject());
 
-		String info = sub.say("xuwenjin", 25);
-		System.out.println("返回结果：" + info);
+		sub.say("xuwenjin", 25);
 	}
 
 }
