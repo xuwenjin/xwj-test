@@ -11,21 +11,21 @@ import com.xwj.proxy.Subject;
  * 
  * @author XU.WJ 2018年2月26日
  */
-public class Proxy implements Subject {
+public class ProxySubject implements Subject {
 
 	private RealSubject realSubject = null;
 
-	public Proxy(RealSubject realSubject) {
+	public ProxySubject(RealSubject realSubject) {
 		this.realSubject = realSubject;
 	}
 
 	@Override
-	public void say(String name, int age) {
+	public void say(String name) {
 		// 在转调具体的目标对象之前，可以执行一些功能处理，比如权限判断
 		eat();
 
 		// 转调具体的目标对象
-		realSubject.say(name, age);
+		realSubject.say(name);
 
 		// 在转调具体的目标对象之后，可以执行一些功能处理
 		// 这也是代理模式的核心
