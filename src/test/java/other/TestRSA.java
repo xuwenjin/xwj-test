@@ -32,7 +32,7 @@ public class TestRSA {
 	public static void jdkRSA() {
 		// 1、初始化密钥
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM);
-		keyPairGenerator.initialize(512);
+		keyPairGenerator.initialize(1024);
 		KeyPair keyPair = keyPairGenerator.generateKeyPair();
 		RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
 		RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
