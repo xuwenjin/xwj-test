@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * 
  * @author XU.WJ 2017年7月6日
  */
-public class Test2 {
+public class TestRunTime {
 
 	public static void main(String[] args) {
 		List<Dish> menu = new ArrayList<Dish>();
@@ -36,7 +36,6 @@ public class Test2 {
 				lowCaloricDishes.add(d);
 			}
 		}
-//		
 		List<String> lowCaloricDishesName = new ArrayList<>();
 		for (Dish d : lowCaloricDishes) {
 			lowCaloricDishesName.add(d.getName());
@@ -47,16 +46,13 @@ public class Test2 {
 
 	public static void testNow(List<Dish> menu) {
 		long start = System.currentTimeMillis();
-		List<String> lowCaloricDishesName = menu.stream().filter(d -> {
-			System.out.println(d.getName());
+		menu.stream().filter(d -> {
 			return d.getCalories() < 400;
 		}).map(d -> {
-			System.out.println(d.getName());
 			return d.getName();
-		})
-				.collect(Collectors.toList());
+		}).collect(Collectors.toList());
 		long end = System.currentTimeMillis();
 		System.out.println(end - start);
 	}
-	
+
 }

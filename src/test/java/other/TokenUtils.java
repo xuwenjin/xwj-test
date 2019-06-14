@@ -80,7 +80,7 @@ public class TokenUtils {
 	}
 
 	public static void main(String[] args) {
-		// 生成token
+		// 生成token(每次生成token都不同)
 		String subject = "subject";
 		String secretKey = "xuwenjin";
 		Map<String, Object> claims = new HashMap<>();
