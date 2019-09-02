@@ -124,6 +124,7 @@ public class TestExecutorService {
 			//invokeAny(...)方法接收的是一个Callable的集合。会返回所有Callable任务中其中一个任务的执行结果
 			String result = executor.invokeAny(callables);
 			System.out.println("result = " + result);
+			//停止接收新任务，原来的任务继续执行
 			executor.shutdown();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -168,6 +169,7 @@ public class TestExecutorService {
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
+		//停止接收新任务，原来的任务继续执行
 		executor.shutdown();
 	}
 
