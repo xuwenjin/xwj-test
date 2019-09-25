@@ -95,7 +95,6 @@ public class TokenUtils {
 		System.out.println(chaims.get("userId"));
 
 		System.out.println(isValid(token, secretKey));
-
 	}
 
 }
