@@ -58,10 +58,10 @@ public class VolatileDemo {
 
 				@Override
 				public void run() {
-					// demo.add();
-					// demo.add2();
-					// demo.add3();
-					demo.add4();
+					 demo.add();
+//					 demo.add2();
+//					 demo.add3();
+//					demo.add4();
 				}
 			}).start();
 		}
@@ -71,8 +71,8 @@ public class VolatileDemo {
 		while (Thread.activeCount() > 1) {
 			Thread.yield();
 		}
-//		System.out.println("number:" + demo.getNumber());
-		System.out.println("count:" + demo.getCount());
+		System.out.println("number:" + demo.getNumber());
+//		System.out.println("count:" + demo.getCount());
 	}
 
 }
