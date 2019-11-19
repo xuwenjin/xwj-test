@@ -8,10 +8,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-import org.junit.Test;
+import org.springframework.util.CollectionUtils;
 
+import lombok.SneakyThrows;
 import util.IdWorker;
 
 /**
@@ -21,25 +23,31 @@ import util.IdWorker;
  */
 public class UseExecutorDemo {
 
-	@Test
-	public void testExecute() throws Exception {
-		List<String> strList = IdWorker.getStrList(1000000);
-		long start = System.currentTimeMillis();
-		final CountDownLatch countDownLatch = new CountDownLatch(5);
+	public static void main(String[] args) {
+		List<String> strList = IdWorker.getStrList(10000);
+		testExecute(strList);
+		testExecute2(strList);
+	}
 
-		ExecutorService executor = Executors.newFixedThreadPool(5); //开启5个线程
-		IntStream.range(0, 50).forEach(index -> {
-			// 将1000000个数据分成50份，每份20000个数
-			List<String> list = new ArrayList<>(20000);
-			list.addAll(strList.subList(index * 20000, (index + 1) * 20000));
+	@SneakyThrows
+	public static void testExecute(List<String> strList) {
+		long start = System.currentTimeMillis();
+		final CountDownLatch countDownLatch = new CountDownLatch(10);
+
+		int threadNum = 100;
+		List<String> resultList = new ArrayList<>();
+		ExecutorService executor = Executors.newFixedThreadPool(threadNum); // 开启5个线程
+		IntStream.range(0, threadNum).forEach(index -> {
+			// 将10000个数据分成100份，每份100个数
+			List<String> list = new ArrayList<>(100);
+			list.addAll(strList.subList(index * 100, (index + 1) * 100));
 
 			Future<List<String>> task = executor.submit(new Callable<List<String>>() {
 				@Override
 				public List<String> call() throws Exception {
-					System.out.println("执行线程" + Thread.currentThread().getName());
 					List<String> resultList = new ArrayList<>();
 					for (String str : list) {
-						if (str.contains("5p")) {
+						if (isMatch(strList, str)) {
 							resultList.add(str);
 						}
 					}
@@ -49,7 +57,10 @@ public class UseExecutorDemo {
 			});
 			// 获取执行结果
 			try {
-				System.out.println("结果为" + task.get());
+				List<String> result = task.get();
+				if (!CollectionUtils.isEmpty(result)) {
+					resultList.addAll(result);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {
@@ -59,7 +70,28 @@ public class UseExecutorDemo {
 		countDownLatch.await();
 		executor.shutdown();
 		long end = System.currentTimeMillis();
-		System.out.println(end - start);
+		System.out.println("匹配个数：" + resultList.size() + ", 用时" + (end - start));
 	}
-	
+
+	public static void testExecute2(List<String> strList) {
+		long start = System.currentTimeMillis();
+		List<String> resultList = new ArrayList<>();
+		for (String str : strList) {
+			if (isMatch(strList, str)) {
+				resultList.add(str);
+			}
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("匹配个数：" + resultList.size() + ", 用时" + (end - start));
+	}
+
+	private static boolean isMatch(List<String> strList, String str) {
+		try {
+			TimeUnit.MILLISECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return str.contains("5p");
+	}
+
 }
