@@ -18,7 +18,7 @@ public class ReflectDemo {
 
 		Person p = new Person();
 		p.setId("0");
-		p.settId("0");
+		p.setTId("0");
 		
 		test(p, "id");
 		test(p, "tId");
