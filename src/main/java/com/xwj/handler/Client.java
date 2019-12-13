@@ -3,7 +3,7 @@ package com.xwj.handler;
 public class Client {
 
 	public static void main(String[] args) {
-		String input = "2";
+		String input = "3";
 		HandlerChain chain = new HandlerChain();
 		chain.addHandler(new MyHandler1());
 		chain.addHandler(new MyHandler2());
