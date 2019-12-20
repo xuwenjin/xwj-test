@@ -8,9 +8,8 @@ package com.xwj.factory.func;
 public class IQueryFuncC implements IBaseQuery {
 
 	@Override
-	public String getQueryfuncSql(String field, String funcode) {
+	public void print() {
 		System.out.println("我是子类C");
-		return "C";
 	}
 
 }

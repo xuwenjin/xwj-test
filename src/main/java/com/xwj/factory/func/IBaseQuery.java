@@ -8,7 +8,7 @@ package com.xwj.factory.func;
  * @author XU.WJ 2018年3月13日
  */
 public interface IBaseQuery {
-	
-	String getQueryfuncSql(String field, String funcode);
+
+	void print();
 
 }
