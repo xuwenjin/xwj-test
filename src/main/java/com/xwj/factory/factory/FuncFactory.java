@@ -1,9 +1,9 @@
 package com.xwj.factory.factory;
 
 import com.xwj.factory.func.IBaseQuery;
-import com.xwj.factory.func.IQueryFuncA;
-import com.xwj.factory.func.IQueryFuncB;
-import com.xwj.factory.func.IQueryFuncC;
+import com.xwj.factory.func.QueryFuncA;
+import com.xwj.factory.func.QueryFuncB;
+import com.xwj.factory.func.QueryFuncC;
 
 /**
  * 工厂类
@@ -15,11 +15,11 @@ public class FuncFactory {
 	public static IBaseQuery getQueryFunc(String funcode) {
 		IBaseQuery queryFunc = null;
 		if ("001".equals(funcode)) {
-			queryFunc = new IQueryFuncA();
+			queryFunc = new QueryFuncA();
 		} else if ("002".equals(funcode)) {
-			queryFunc = new IQueryFuncB();
+			queryFunc = new QueryFuncB();
 		} else if ("003".equals(funcode)) {
-			queryFunc = new IQueryFuncC();
+			queryFunc = new QueryFuncC();
 		}
 		return queryFunc;
 	}

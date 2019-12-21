@@ -5,7 +5,7 @@ package com.xwj.factory.func;
  * 
  * @author XU.WJ 2018年3月13日
  */
-public class IQueryFuncC implements IBaseQuery {
+public class QueryFuncC implements IBaseQuery {
 
 	@Override
 	public void print() {
