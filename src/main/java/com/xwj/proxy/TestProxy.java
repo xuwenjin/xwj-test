@@ -31,12 +31,12 @@ public class TestProxy {
 		// 实例化代理操作类
 		JdkProxy handler = new JdkProxy();
 		// 代理接口的实现类
-		// Subject sub = (Subject) handler.bind(new RealSubject());
-		// sub.say("xuwenjin");
+		Subject sub = (Subject) handler.bind(new RealSubject());
+		sub.say("xuwenjin");
 
-		// 代理没有接口的类
-		Train train = (Train) handler.bind(new Train());
-		train.run();
+		// 代理没有接口的类(会报错)
+		// Train train = (Train) handler.bind(new Train());
+		// train.run();
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class TestProxy {
 		// 非final方法
 		train.run();
 		// final方法
-		// train.go();
+		train.go();
 	}
 
 }
