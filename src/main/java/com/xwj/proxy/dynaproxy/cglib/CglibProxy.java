@@ -17,9 +17,6 @@ public class CglibProxy implements MethodInterceptor {
 
 	/**
 	 * 创建代理类
-	 * 
-	 * @param clazz
-	 * @return
 	 */
 	public Object getProxy(Class<?> clazz) {
 		enhancer.setSuperclass(clazz); // 设置创建子类的类(即设置父类)
@@ -30,7 +27,10 @@ public class CglibProxy implements MethodInterceptor {
 	/**
 	 * 拦截所有目标类方法的调用
 	 * 
-	 * obj 目标类的实例 method 目标类的方法 args 方法的参数 proxy 代理类的实例
+	 * obj 目标类的实例 
+	 * method 目标类的方法 
+	 * args 方法的参数 
+	 * proxy 代理类的实例
 	 */
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
