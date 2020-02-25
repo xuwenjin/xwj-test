@@ -25,7 +25,7 @@ public class TestRSA {
 
 	public static void main(String[] args) {
 		// 1、初始化密钥
-		KeyPair keyPair = getKeyPair();
+		KeyPair keyPair = initKeyPair();
 		RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
 		RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
 		String publicKeyStr = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());
@@ -101,10 +101,10 @@ public class TestRSA {
 	}
 
 	/**
-	 * 获取秘钥生成器
+	 * 初始化秘钥生成器
 	 */
 	@SneakyThrows
-	public static KeyPair getKeyPair() {
+	public static KeyPair initKeyPair() {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITHM);
 		generator.initialize(1024);
 		return generator.generateKeyPair();
