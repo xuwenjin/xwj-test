@@ -49,7 +49,7 @@
 			<!-- jwt -->
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
-			<version>0.7.0</version>
+			<version>0.9.0</version>
 		</dependency>
 		<dependency>
 			<!-- 日期类工具类(DateTime) -->
