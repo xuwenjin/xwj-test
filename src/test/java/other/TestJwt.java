@@ -29,7 +29,9 @@ import util.RSAUtil;
 public class TestJwt {
 
 	/** 过期时间 */
-	private static final long EXPIRE = 3600L;// 1小时
+	private static final long EXPIRE = 30L;// 1小时
+	/** 秘钥 */
+	private static final String SECRET = "xuwenjin";
 
 	/**
 	 * 生成token(RS256加密 + 标准声明(建议但不强制使用))
@@ -88,7 +90,7 @@ public class TestJwt {
 		Claims chaims = parserTokenByPubKey(token, pubKey);
 		Integer exp = (Integer) chaims.get(Claims.EXPIRATION);
 		long now = (long) System.currentTimeMillis() / 1000;
-		return exp - now > 0;
+		return now - exp > 0;
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class TestJwt {
 		Integer exp = (Integer) chaims.get(Claims.EXPIRATION);
 		long now = (long) System.currentTimeMillis() / 1000;
 		System.out.println("exp:" + exp + ", now:" + now);
-		return exp - now > 0;
+		return now - exp > 0;
 	}
 
 	/**
@@ -169,20 +171,50 @@ public class TestJwt {
 	public void test2() {
 		// 由于时间戳不一样，每次生成token都不同
 		String subject = "mySubject";
-		String secretKey = "xuwenjin";
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("userId", "1");
 		claims.put("userName", "xwj");
-		String token = generateToken(subject, secretKey, claims);
+		String token = generateToken(subject, SECRET, claims);
 		System.out.println(token);
+	}
 
+	/**
+	 * 测试解密
+	 */
+	@Test
+	public void testParseToken() {
+		/**
+		 * 如果token已过期，则会报过期异常
+		 */
+		String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJteVN1YmplY3QiLCJleHAiOjE1ODQ5Mjc1MDQsInVzZXJOYW1lIjoieHdqIiwidXNlcklkIjoiMSJ9.Ys06PeJMqRHVMbNmUYO0PZn2K591wh4opLJmVlK-em0";
 		// 解密token
-		Claims chaims = parserToken(token, secretKey);
+		Claims chaims = parserToken(token, SECRET);
 		System.out.println("subject: " + chaims.getSubject());
 		System.out.println("chaims: " + chaims);
 
 		// 是否过期
-		System.out.println("isExpirate: " + isExpirate(token, secretKey));
+		System.out.println("isExpirate: " + isExpirate(token, SECRET));
+	}
+
+	/**
+	 * 测试解密jwt第一二部分
+	 */
+	@Test
+	public void testParsePlayload() {
+		/**
+		 * 如果token已过期，则会报过期异常
+		 */
+		String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJteVN1YmplY3QiLCJleHAiOjE1ODQ5Mjc1MDQsInVzZXJOYW1lIjoieHdqIiwidXNlcklkIjoiMSJ9.Ys06PeJMqRHVMbNmUYO0PZn2K591wh4opLJmVlK-em0";
+		String[] tokenArr = token.split("\\.");
+		String header = tokenArr[0];
+		String playload = tokenArr[1];
+		System.out.println("header:" + header);
+		byte[] headerBytes = Base64Util.decode(header);
+		System.out.println("header解密：" + new String(headerBytes));
+
+		System.out.println("playload:" + playload);
+		byte[] playloadBytes = Base64Util.decode(playload);
+		System.out.println("playload解密：" + new String(playloadBytes));
 	}
 
 }
