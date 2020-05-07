@@ -1,4 +1,4 @@
-package algorithms;
+package leetcode;
 
 /**
  * 算术-数组
