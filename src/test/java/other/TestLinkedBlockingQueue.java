@@ -16,16 +16,16 @@ public class TestLinkedBlockingQueue {
 
 	public static void main(String[] args) {
 		System.out.println("--------入队--------");
-		// add();
+		 add();
 		offer();
 		// offer2();
 		// put();
 
 		System.out.println("--------出队--------");
 		// poll();
-		poll2();
+//		poll2();
 		// peek();
-		// take();
+		 take();
 	}
 
 	/**
