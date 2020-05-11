@@ -16,16 +16,16 @@ public class TestLinkedBlockingQueue {
 
 	public static void main(String[] args) {
 		System.out.println("--------入队--------");
-		 add();
-		offer();
+		// add();
+		// offer();
 		// offer2();
-		// put();
+		put();
 
 		System.out.println("--------出队--------");
 		// poll();
-//		poll2();
+		// poll2();
 		// peek();
-		 take();
+		take();
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class TestLinkedBlockingQueue {
 	}
 
 	/**
-	 * put方法(阻塞)。如果队列满了，一直阻塞，直到队列不满了或者线程被中断
+	 * put方法(阻塞)。当队列满了，再添加元素时，会阻塞，直到队列不满了或者线程被中断
 	 */
 	public static void put() {
 		for (int i = 0; i < 10; i++) {

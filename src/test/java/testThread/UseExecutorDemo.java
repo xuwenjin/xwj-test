@@ -32,9 +32,10 @@ public class UseExecutorDemo {
 	@SneakyThrows
 	public static void testExecute(List<String> strList) {
 		long start = System.currentTimeMillis();
-		final CountDownLatch countDownLatch = new CountDownLatch(10);
-
+		
 		int threadNum = 100;
+		final CountDownLatch countDownLatch = new CountDownLatch(threadNum);
+
 		List<String> resultList = new ArrayList<>();
 		ExecutorService executor = Executors.newFixedThreadPool(threadNum); // 开启5个线程
 		IntStream.range(0, threadNum).forEach(index -> {
