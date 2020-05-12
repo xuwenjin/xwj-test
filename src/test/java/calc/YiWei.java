@@ -38,14 +38,37 @@ public class YiWei {
 	 */
 	@Test
 	public void test2() {
-//		int num = 7;
-		 int num = -7;
+		// int num = 7;
+		int num = -7;
 		System.out.println(num + "的二进制：" + Integer.toBinaryString(num));
 
 		// num大于0时，右移，相当于num除以pow(2, n)
 		print(num >>> 1);
 		print(num >>> 2);
 		print(num >>> 3);
+	}
+
+	/**
+	 * 测试移位运算与四则运算效率
+	 */
+	@Test
+	public void testSpeed() {
+		int num = 10000 * 10000;
+
+		long t1 = System.currentTimeMillis();
+		for (int i = 0; i < num; i++) {
+			int s = i * 4;
+		}
+		long t2 = System.currentTimeMillis();
+		System.out.println("除法运算用时：" + (t2 - t1));
+
+		for (int i = 0; i < num; i++) {
+			int s = i >> 2;
+		}
+
+		long t3 = System.currentTimeMillis();
+		System.out.println("右移运算用时：" + (t3 - t2));
+
 	}
 
 	private void print(int num) {
