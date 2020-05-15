@@ -63,6 +63,12 @@
 			<artifactId>concurrentlinkedhashmap-lru</artifactId>
 			<version>1.4.2</version>
 		</dependency>
+		<dependency>
+			<!-- Java Object Layout, 分析java对象大小 -->
+			<groupId>org.openjdk.jol</groupId>
+			<artifactId>jol-core</artifactId>
+			<version>0.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>
