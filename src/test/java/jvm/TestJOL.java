@@ -17,7 +17,10 @@ import entity.Son;
  */
 public class TestJOL {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
+
+		// 偏向锁的启动，需要等待4s
+		// TimeUnit.SECONDS.sleep(5);
 
 		Son o = new Son();
 

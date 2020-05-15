@@ -32,9 +32,8 @@ public class CAS_AtomicInteger {
 		// 设置为给定值
 		// count.set(8);
 
-		// 获取当前值
-		System.out.println(count.get());
-		System.out.println(result);
+		System.out.println("返回值：" + result);
+		System.out.println("当前值：" + count.get());
 	}
 
 }
