@@ -17,7 +17,7 @@ public class MemoryLeak {
 		while (true) {
 			i++;
 			if (i % 1000 == 0) {
-				TimeUnit.MILLISECONDS.sleep(10);
+				TimeUnit.MILLISECONDS.sleep(100);
 //				MemoryInformation info = new MemoryInformation();
 //				System.out.println("usededen：" + info.getUsedEdenSpace());
 //				System.out.println("Survivor已使用内存：" + info.getUsedSurvivorSpace());
