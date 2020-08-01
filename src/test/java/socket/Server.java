@@ -40,11 +40,6 @@ public class Server {
 				// 从请求队列中取出一个连接，如果当前没有请求，accpet方法会一直阻塞
 				Socket client = serverSocket.accept();
 
-				System.out.println("KeepAlive:" + client.getKeepAlive());
-				System.out.println("isBound:" + client.isBound());
-				System.out.println("isClosed:" + client.isClosed());
-				System.out.println("isConnected:" + client.isConnected());
-
 				// System.out.println("新的连接：" + onlineCount.incrementAndGet());
 
 				// 处理这次连接

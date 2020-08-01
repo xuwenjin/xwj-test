@@ -30,16 +30,17 @@ public class Client {
 				// 创建一个流套接字并将其连接到指定主机上的指定端口号
 				socket = new Socket(host, port);
 
-				// 读取服务器端数据
-				BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				// 向服务器端发送数据
 				PrintStream out = new PrintStream(socket.getOutputStream());
 				System.out.print("请输入: \t");
 				String str = new BufferedReader(new InputStreamReader(System.in)).readLine();
 				out.println(str);
 
+				// 读取服务器端数据
+				BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String ret = input.readLine();
 				System.out.println("服务器端返回过来的是: " + ret);
+
 				// 如接收到 "OK" 则断开连接
 				if ("OK".equals(ret)) {
 					System.out.println("客户端将关闭连接");
