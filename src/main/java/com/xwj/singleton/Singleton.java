@@ -7,18 +7,17 @@ package com.xwj.singleton;
  */
 public class Singleton {
 
-	private static Singleton singleton;
+	/** singleton需要加volatile修饰符，防止对象初始化时指令重排序 */
+	private static volatile Singleton singleton;
 
-	public static int identifyCode; // 插入一个验证码，验证是否生成了多个对象
+	/** 插入一个验证码，验证是否生成了多个对象 */
+	public static int identifyCode;
 
 	private Singleton() {
-
 	}
 
 	/**
 	 * 存在线程安全
-	 * 
-	 * @return
 	 */
 	public static Singleton getInstance() {
 		if (singleton == null) {
@@ -30,8 +29,6 @@ public class Singleton {
 
 	/**
 	 * 在方法上加同步锁，有损效率
-	 * 
-	 * @return
 	 */
 	public synchronized static Singleton getInstance2() {
 		if (singleton == null) {
@@ -42,8 +39,6 @@ public class Singleton {
 
 	/**
 	 * 双重校验，效果更好
-	 * 
-	 * @return
 	 */
 	public static Singleton getInstance3() {
 		if (singleton == null) {

@@ -37,7 +37,7 @@ public class UseExecutorDemo {
 		final CountDownLatch countDownLatch = new CountDownLatch(threadNum);
 
 		List<String> resultList = new ArrayList<>();
-		ExecutorService executor = Executors.newFixedThreadPool(threadNum); // 开启5个线程
+		ExecutorService executor = Executors.newFixedThreadPool(threadNum);
 		IntStream.range(0, threadNum).forEach(index -> {
 			// 将10000个数据分成100份，每份100个数
 			List<String> list = new ArrayList<>(100);
