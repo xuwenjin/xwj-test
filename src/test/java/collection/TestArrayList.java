@@ -3,7 +3,7 @@ package collection;
 import java.util.ArrayList;
 import java.util.List;
 
-import jre8Test.Dish;
+import jre8Test.po.Dish;
 
 /**
  * 测试ArrayList的工作原理
