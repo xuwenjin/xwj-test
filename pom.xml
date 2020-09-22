@@ -69,6 +69,12 @@
 			<artifactId>jol-core</artifactId>
 			<version>0.9</version>
 		</dependency>
+		<dependency>
+			<!-- rxjava2 响应式编程 -->
+			<groupId>io.reactivex.rxjava2</groupId>
+			<artifactId>rxjava</artifactId>
+			<version>2.2.19</version>
+		</dependency>
 	</dependencies>
 
 	<build>
