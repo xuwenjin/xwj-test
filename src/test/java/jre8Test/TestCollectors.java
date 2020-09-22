@@ -9,11 +9,10 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
+import jre8Test.po.Dish;
+
 /**
  * 收集器Collectors使用
- * 
- * @author xwj
- *
  */
 public class TestCollectors {
 

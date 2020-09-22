@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import jre8Test.po.Dish;
+
 /**
  * 测试foreach循环
  * 
@@ -25,20 +27,7 @@ import org.junit.Test;
 public class TestForEach {
 
 	private List<Dish> getList() {
-		List<Dish> menu = new ArrayList<Dish>();
-		for (int i = 0; i < 100; i++) {
-			Dish dish = new Dish();
-			dish.setId(i + "");
-			if (i % 3 == 0) {
-				dish.setName("鸡肉");
-			} else if (i % 3 == 1) {
-				dish.setName("鸭肉");
-			} else {
-				dish.setName("鱼");
-			}
-			menu.add(dish);
-		}
-		return menu;
+		return InitData.dishList(100);
 	}
 
 	@Test

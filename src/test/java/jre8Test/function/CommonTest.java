@@ -1,6 +1,4 @@
-package jre8Test;
-
-import jre8Test.inter.MyInterface;
+package jre8Test.function;
 
 public class CommonTest {
 

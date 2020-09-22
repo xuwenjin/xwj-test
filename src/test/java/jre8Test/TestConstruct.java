@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import jre8Test.po.Apple;
+
 /**
  * 构造器方法引用
  * 

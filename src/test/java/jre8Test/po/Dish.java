@@ -1,4 +1,4 @@
-package jre8Test;
+package jre8Test.po;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package jre8Test;
+package jre8Test.function;
 
 /**
  * 测试传递方法
