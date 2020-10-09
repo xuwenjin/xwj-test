@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 内存泄漏
+ * 内存溢出(java.lang.OutOfMemoryError: Java heap space)
  * 
- * 内存泄漏是指无用对象（不再使用的对象）持续占有内存或无用对象的内存得不到及时释放，从而造成内存空间的浪费称为内存泄漏。内存泄露有时不严重且不易察觉，这样开发者就不知道存在内存泄露，需要自主观察，比较严重的时候，没有内存可以分配，直接oom
+ * 指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM
  */
-public class MemoryLeak {
+public class TestOutOfMemory {
 
 	public static void main(String[] args) throws InterruptedException {
 		List<Object> list = new LinkedList<>();
