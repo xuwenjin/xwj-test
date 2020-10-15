@@ -13,6 +13,8 @@ public class TestException {
 			res = str.substring(2);
 		} catch (Exception e) {
 			res = "Exception";
+		} finally {
+			res = "finally";
 		}
 		res = "hahah";
 		return res;

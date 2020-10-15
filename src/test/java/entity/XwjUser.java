@@ -37,6 +37,11 @@ public class XwjUser implements Serializable {
 
 	private List<Integer> intList;
 
+	public XwjUser(int id) {
+		super();
+		this.id = id;
+	}
+
 	public XwjUser(int id, String message, Date sendTime) {
 		super();
 		this.id = id;
