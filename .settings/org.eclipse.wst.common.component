@@ -2,5 +2,6 @@
     <wb-module deploy-name="xwj-impl">
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/target/generated-sources/annotations"/>
+        <wb-resource deploy-path="/" source-path="/src/test/resources"/>
     </wb-module>
 </project-modules>
