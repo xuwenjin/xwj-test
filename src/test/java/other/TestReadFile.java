@@ -65,6 +65,9 @@ public class TestReadFile {
 		System.out.println("用时：" + (System.currentTimeMillis() - t1)); // 586
 	}
 
+	/**
+	 * 使用观察者模式读文件
+	 */
 	@Test
 	public void test3() throws InterruptedException {
 		long t1 = System.currentTimeMillis();
