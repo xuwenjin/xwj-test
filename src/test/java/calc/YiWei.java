@@ -17,7 +17,7 @@ public class YiWei {
 	@Test
 	public void test1() {
 		// int num = 7;
-		int num = -7;
+		int num = 2;
 		System.out.println(num + "的二进制：" + Integer.toBinaryString(num));
 
 		// num大于0时，右移，相当于num除以pow(2, n)
