@@ -156,7 +156,7 @@ public class RomanAndArabic {
 //		System.out.println("AB ----> " + romanToArabic("AB")); // 上面的82行会出现空指针异常
 		
 		// 阿拉伯数字转换为罗马数字
-		System.out.println("1425 ----> " + arabic2Roman(1425)); // 4
+		System.out.println("1425 ----> " + arabic2Roman(1425)); // MCDXXV
 	}
 
 }
