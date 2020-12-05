@@ -4,14 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 测试罗马数字
- * 
- * 从左往右，效率可能会更高
+ * 测试罗马数字与阿拉伯数字互转
  */
-public class RomanTest {
+public class RomanAndArabic {
 
 	/**
-	 * 罗马数字转阿拉伯数字
+	 * 罗马数字转阿拉伯数字(从左往右，效率可能会更高)
 	 * 
 	 * romanNum为空或者包含非罗马字符返回0
 	 */
@@ -117,21 +115,48 @@ public class RomanTest {
 		return arabicTotal;
 	}
 
-	public static void main(String[] args) {
-		System.out.println("--------正常测试----------");
-		System.out.println("IV ----> " + romanToArabic("IV")); // 4
-		System.out.println("XLII ----> " + romanToArabic("XLII")); // 42
-		System.out.println("XXXIX ----> " + romanToArabic("XXXIX")); // 39
-		System.out.println("MCMXLIV  ----> " + romanToArabic("MCMXLIV")); // 1944
-		System.out.println("MMVI ----> " + romanToArabic("MMVI")); // 2006
-		System.out.println("MMIII ----> " + romanToArabic("MMIII")); // 2003
-		System.out.println("MDC ----> " + romanToArabic("MDC")); // 2003
+	/**
+	  * 阿拉伯数字转换为罗马数字
+	  */
+	public static String arabic2Roman(int arabicNum) {
+		int[] arabicArr =   { 1000, 900, 500, 400,  100,  90,  50,  40,   10,   9,    5,   4,    1 };
+		String[] romanArr = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
-		System.out.println("--------异常测试----------");
-		System.out.println(" ----> " + romanToArabic(""));
-		System.out.println("IC ----> " + romanToArabic("IC"));
-		System.out.println("XLII ----> " + romanToArabic("XLII"));
-		System.out.println("AB ----> " + romanToArabic("AB")); // 上面的82行会出现空指针异常
+		String romanNum = "";
+		if (arabicNum < 1 || arabicNum > 3999) {
+			romanNum = "-1";
+		}
+
+		for (int i = 0; i < romanArr.length; i++) {
+			// 将num转为从最高位到最低位的一个个罗马组合(一个字符或者两个字符)
+			// 例如：1425 = 1000 + 400 + 20 + 5 --> M + CD + XX + V
+			while (arabicNum >= arabicArr[i]) {
+				romanNum += romanArr[i];
+				arabicNum -= arabicArr[i];
+			}
+		}
+		
+		return romanNum;
+	}
+
+	public static void main(String[] args) {
+//		System.out.println("--------正常测试----------");
+//		System.out.println("IV ----> " + romanToArabic("IV")); // 4
+//		System.out.println("XLII ----> " + romanToArabic("XLII")); // 42
+//		System.out.println("XXXIX ----> " + romanToArabic("XXXIX")); // 39
+//		System.out.println("MCMXLIV  ----> " + romanToArabic("MCMXLIV")); // 1944
+//		System.out.println("MMVI ----> " + romanToArabic("MMVI")); // 2006
+//		System.out.println("MMIII ----> " + romanToArabic("MMIII")); // 2003
+//		System.out.println("MDC ----> " + romanToArabic("MDC")); // 2003
+//
+//		System.out.println("--------异常测试----------");
+//		System.out.println(" ----> " + romanToArabic(""));
+//		System.out.println("IC ----> " + romanToArabic("IC"));
+//		System.out.println("XLII ----> " + romanToArabic("XLII"));
+//		System.out.println("AB ----> " + romanToArabic("AB")); // 上面的82行会出现空指针异常
+		
+		// 阿拉伯数字转换为罗马数字
+		System.out.println("1425 ----> " + arabic2Roman(1425)); // 4
 	}
 
 }
