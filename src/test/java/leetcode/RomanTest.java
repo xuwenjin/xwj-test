@@ -3,53 +3,39 @@ package leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 测试罗马数字
+ * 
+ * 从左往右，效率可能会更高
+ */
 public class RomanTest {
 
-	private static final String[] rnums = { "m", "cm", "d", "cd", "c", "xc", "l", "xl", "x", "Mx", "v", "Mv", "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
-
-	private static final int[] anums = { 1000000, 900000, 500000, 400000, 100000, 90000, 50000, 40000, 10000, 9000, 5000, 4000, 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-
-	public static String toRomanNumber(int number) {
-		if (number == 0)
-			return "ZERO";
-		if ((number < 0) || (number > 3999999)) {
-			return "OVERFLOW";
-		}
-
-		StringBuilder output = new StringBuilder();
-		for (int i = 0; (number > 0) && (i < anums.length); i++) {
-			while (number >= anums[i]) {
-				number -= anums[i];
-				output.append(rnums[i]);
-			}
-		}
-		return output.toString();
-	}
-
 	/**
 	 * 罗马数字转阿拉伯数字
-	 */
-	public static int toArabicNumber(String romanNumber) {
-		int number = 0;
-		StringBuilder buffer = new StringBuilder(romanNumber);
-		for (int i = 0; (buffer.length() > 0) && (i < anums.length); i++) {
-			while (buffer.indexOf(rnums[i]) == 0) {
-				number += anums[i];
-				buffer.delete(0, rnums[i].length());
-			}
-		}
-		return number;
-	}
-
-	/**
-	 * 罗马数字转阿拉伯数字
+	 * 
+	 * romanNum为空或者包含非罗马字符返回0
 	 */
 	public static int romanToArabic(String romanNum) {
 		if (romanNum == null || romanNum.length() == 0) {
 			return 0;
 		}
 
-		Map<Character, Integer> romanArabicMap = new HashMap<>();
+		// 从右往左遍历
+		// int arabicTotal = right2Left(romanNum);
+
+		// 从左往右遍历
+		int arabicTotal = left2Right(romanNum);
+
+		return arabicTotal;
+	}
+
+	/**
+	 * 从右往左遍历
+	 * 
+	 * 一位一位的遍历，每次将当前位与右边一位相比，如果大于则相加，否则相减
+	 */
+	public static int right2Left(String romanNum) {
+		Map<Character, Integer> romanArabicMap = new HashMap<>(8);
 		romanArabicMap.put('I', 1);
 		romanArabicMap.put('V', 5);
 		romanArabicMap.put('X', 10);
@@ -60,16 +46,6 @@ public class RomanTest {
 
 		int romanLen = romanNum.length();
 
-		int res = iterR2L(romanArabicMap, romanNum, romanLen);
-		// int res = iterL2R(map, romanNum);
-
-		return res;
-	}
-
-	/**
-	 * 右边往左边遍历
-	 */
-	public static int iterR2L(Map<Character, Integer> romanArabicMap, String romanNum, int romanLen) {
 		// 1、校验romanNum中有非罗马字符，则直接返回0
 		for (int i = 0; i < romanLen; i++) {
 			if (!romanArabicMap.containsKey(romanNum.charAt(i))) {
@@ -88,8 +64,10 @@ public class RomanTest {
 			int theArabicNum = romanArabicMap.get(romanNum.charAt(i)); // 当前罗马字符对应数字
 			int rightArabicNum = romanArabicMap.get(romanNum.charAt(i + 1)); // 右侧罗马字符对应数字
 			if (theArabicNum >= rightArabicNum) {
+				// 如果当前数字比右边大，则相加
 				arabicTotal += theArabicNum;
 			} else {
+				// 如果当前数字比右边小，则相减
 				arabicTotal -= theArabicNum;
 			}
 		}
@@ -98,24 +76,45 @@ public class RomanTest {
 	}
 
 	/**
-	 * 左边往右边遍历
+	 * 从左往右遍历
+	 * 
+	 * 左减数字必须为一位，比如8是Ⅷ，不用ⅡⅩ。--> 组合只有两种，一种是 1 个字符，一种是 2 个字符，其中 2 个字符优先于 1 个字符(可能是右边减去左边，所有必须先看两位)
+	 * 右加数字不连续超过三位，比如14是ⅪⅤ，不用ⅪⅢ。 
+	 * 
+	 * 先判断两个字符的在map中是否存在，存在则从map中取出对应数字并相加，再向后移2个字符。不存在则从map中取出当前字符对应数字并相加，再向后移 1 个字符
 	 */
-	public static int iterL2R(Map<Character, Integer> romanArabicMap, String romanNum, int romanLen) {
-		// 最右侧罗马字符对应数字
-		int res = romanArabicMap.get(romanNum.charAt(0));
-		if (romanLen == 1) {
-			return res;
-		}
+	public static int left2Right(String romanNum) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("I", 1);
+		map.put("IV", 4);
+		map.put("V", 5);
+		map.put("IX", 9);
+		map.put("X", 10);
+		map.put("XL", 40);
+		map.put("L", 50);
+		map.put("XC", 90);
+		map.put("C", 100);
+		map.put("CD", 400);
+		map.put("D", 500);
+		map.put("CM", 900);
+		map.put("M", 1000);
 
-		// 从左往右遍历 MCM、MDC 最左侧 --> 最右侧
-		for (int i = 1; i < romanLen - 1; i++) {
-			int theNum = romanArabicMap.get(romanNum.charAt(i)); // 当前罗马字符对应数字
-			int leftNum = romanArabicMap.get(romanNum.charAt(i - 1)); // 左侧罗马字符对应数字
-			if (theNum >= leftNum) {
-				res += (theNum - leftNum);
+		int romanLen = romanNum.length();
+
+		int arabicTotal = 0;
+		for (int i = 0; i < romanLen;) {
+			if (i < romanLen - 1 && map.containsKey(romanNum.substring(i, i + 2))) {
+				// 先判断两个字符的在map中是否存在，存在则从map中取出对应数字并相加，再向后移2个字符 --> 可以减少遍历次数
+				arabicTotal += map.get(romanNum.substring(i, i + 2));
+				i += 2;
+			} else {
+				// 不存在则从map中取出当前字符对应数字并相加，再向后移 1 个字符
+				arabicTotal += map.get(romanNum.substring(i, i + 1));
+				i++;
 			}
 		}
-		return res;
+
+		return arabicTotal;
 	}
 
 	public static void main(String[] args) {
