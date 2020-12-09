@@ -1,5 +1,7 @@
 package testrxjava2;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -15,6 +17,12 @@ public class MyObserver<T> implements Observer<T> {
 
 	@Override
 	public void onNext(T s) {
+		try {
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("currentThread:" + Thread.currentThread().getName());
 		System.out.println("onNext: " + s);
 	}
 
