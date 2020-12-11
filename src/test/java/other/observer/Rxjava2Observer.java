@@ -7,6 +7,8 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * 使用RxJava2实现一个观察者
+ * 
+ * @author xuwenjin 2020年11月15日
  */
 public class Rxjava2Observer<T> implements Observer<T> {
 
@@ -24,25 +26,22 @@ public class Rxjava2Observer<T> implements Observer<T> {
 
 	@Override
 	public void onNext(T s) {
-		// System.out.println("currentThread:" +
-		// Thread.currentThread().getName());
-		System.out.println("收到消息：" + s);
+		System.out.println(Thread.currentThread().getName() + "----收到消息---->" + s);
 		try {
 			TimeUnit.MILLISECONDS.sleep(sleepTime);
 		} catch (InterruptedException e) {
 			System.err.println(e);
 		}
-		System.out.println("收到消息：" + s);
 	}
 
 	@Override
 	public void onError(Throwable e) {
-		// System.out.println("onError: " + e);
+		System.out.println("onError: " + e);
 	}
 
 	@Override
 	public void onComplete() {
-		// System.out.println("onComplete");
+		System.out.println("onComplete");
 	}
 
 }

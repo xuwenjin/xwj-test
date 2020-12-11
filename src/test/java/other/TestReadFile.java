@@ -17,10 +17,10 @@ import com.google.common.base.Charsets;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
-import other.UseArrayBlockingQueue.Notifier;
 import other.observer.MyObservable;
 import other.observer.MyObserver;
 import other.observer.Rxjava2Observer;
+import other.po.Notifier;
 
 /**
  * 测试读取文件
@@ -70,6 +70,8 @@ public class TestReadFile {
 		try {
 			inputStream = new FileInputStream(FILE_PATH);
 			sc = new Scanner(inputStream, "UTF-8");
+			
+			// 一行一行读取文件
 			while (sc.hasNextLine()) {
 				lines.add(sc.nextLine());
 				TimeUnit.MILLISECONDS.sleep(SLEEP_TIME);
@@ -97,11 +99,15 @@ public class TestReadFile {
 		try {
 			inputStream = new FileInputStream(FILE_PATH);
 			sc = new Scanner(inputStream, "UTF-8");
+			
+			// 创建被观察者、观察者
 			MyObservable sm = new MyObservable();
 			sm.addObserver(new MyObserver(SLEEP_TIME));
+			
+			// 一行一行读取文件
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
-				System.out.println("line:" + line);
+				System.out.println("发送消息--->" + line);
 				lines.add(line);
 				sm.setMessage(line);
 			}
@@ -132,19 +138,20 @@ public class TestReadFile {
 			Scanner sc = new Scanner(inputStream, "UTF-8");
 
 			// create() 创建一个被观察者
-			Observable<Object> observable = Observable.create((e) -> {
+			Observable.create((e) -> {
+				// 一行一行读取文件
 				while (sc.hasNextLine()) {
 					String line = sc.nextLine();
-					System.out.println("line:" + line);
+					System.out.println("发送消息--->" + line);
 					e.onNext(line);
 					lines.add(line);
 
 					// 计数器的值减一
 					latch.countDown();
 				}
-			}).observeOn(Schedulers.io());
-			observable.subscribe(new Rxjava2Observer<Object>(SLEEP_TIME));
-
+			})
+			.observeOn(Schedulers.io())// 为观察者创建一个新线程(从线程池中取，没有则创建，无上限)
+			.subscribe(new Rxjava2Observer<Object>(SLEEP_TIME)); // 订阅
 		} catch (Exception e) {
 			System.err.println("该路径下找不到该文件，请重试: " + e.getMessage());
 		}
@@ -154,6 +161,10 @@ public class TestReadFile {
 
 		System.out.println(lines.size()); // 12
 		System.out.println("用时：" + (System.currentTimeMillis() - t1)); // 574
+
+		// 防止主线程已经执行完，但是子线程还在执行
+		for (;;)
+			;
 	}
 
 	/**
@@ -170,13 +181,14 @@ public class TestReadFile {
 			inputStream = new FileInputStream(FILE_PATH);
 			sc = new Scanner(inputStream, "UTF-8");
 
-			// 启动线程
+			// 创建线程并启动
 			final Notifier notifier = new Notifier();
 			notifier.start();
 
+			// 一行一行读取文件
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
-				System.out.println("line:" + line);
+				System.out.println("发送消息--->" + line);
 				lines.add(line);
 				notifier.addTask(line);
 			}

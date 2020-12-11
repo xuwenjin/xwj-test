@@ -3,11 +3,13 @@ package other;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+
+import other.po.Notifier;
 
 /**
- * 使用ArrayBlockingQueue实现异步的效果(参考Nacos往注册表写数据时的一段逻辑)
+ * 使用ArrayBlockingQueue实现异步的效果(参考了Nacos往注册表写数据时的一段逻辑)
+ * 
+ * @author xuwenjin 2019年07月15日
  */
 public class UseArrayBlockingQueue {
 
@@ -22,33 +24,6 @@ public class UseArrayBlockingQueue {
 		for (;;) {
 			String str = new BufferedReader(new InputStreamReader(System.in)).readLine();
 			notifier.addTask(str);
-		}
-	}
-
-	/**
-	 * 内部维护一个ArrayBlockingQueue。不断从队列中取数据，只有向队列中放入数据，则立马取出
-	 */
-	public static class Notifier extends Thread {
-
-		private BlockingQueue<String> queue = new ArrayBlockingQueue<>(1024 * 1024);
-
-		/**
-		 * 添加任务
-		 */
-		public void addTask(String line) {
-			queue.offer(line);
-		}
-
-		@Override
-		public void run() {
-			for (;;) {
-				try {
-					String line = queue.take();
-					System.out.println("line---->" + line + "\t");
-				} catch (InterruptedException e) {
-					System.err.println(e.getMessage());
-				}
-			}
 		}
 	}
 
