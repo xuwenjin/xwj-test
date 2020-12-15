@@ -17,15 +17,15 @@ public class TestLinkedBlockingQueue {
 	public static void main(String[] args) {
 		System.out.println("--------入队--------");
 		// add();
-		// offer();
+		offer();
 		// offer2();
-		put();
+		// put();
 
 		System.out.println("--------出队--------");
-		// poll();
+		poll();
 		// poll2();
 		// peek();
-		take();
+		// take();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class TestLinkedBlockingQueue {
 	public static void offer() {
 		for (int i = 0; i < 5; i++) {
 			boolean notFull = linkedBlockingQueue.offer(String.valueOf(i));
-			System.out.println("notFull: " + notFull);
+			System.out.println("notFull: " + notFull + "------>" + linkedBlockingQueue);
 		}
 		System.out.println(linkedBlockingQueue.size());
 	}
