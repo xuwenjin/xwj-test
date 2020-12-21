@@ -3,11 +3,11 @@ package other.stack;
 import java.util.Stack;
 
 /**
- * 使用stack做符号匹配
+ * Stack应用场景---使用stack做符号匹配
  */
 public class CheckExpression {
 
-	public static String isValid(String expstr) {
+	public static boolean isValid(String expstr) {
 		// 创建栈
 		Stack<String> stack = new Stack<>();
 
@@ -21,24 +21,24 @@ public class CheckExpression {
 				stack.push(ch + "");
 				break;
 			case ')':
-				// 如果是右括号
-				if (stack.isEmpty() || !stack.pop().equals("(")) {
-					// 当前栈为空或者栈中无左括号，则直接返回
-					return "(";
+				if (stack.isEmpty()) {
+					// 如果当前字符是右括号，且栈为空，表明该字符前没有左括号，则直接返回false
+					return false;
+				}
+				if (!stack.pop().equals("(")) {
+					// 如果当前字符是右括号，且栈顶的元素不是左括号，则直接返回false
+					return false;
 				}
 			}
 		}
-		// 最后检测是否为空,为空则检测通过
-		if (stack.isEmpty())
-			return "check pass!";
-		else
-			return "check exception!";
+
+		return stack.isEmpty();
 	}
 
 	public static void main(String args[]) {
-		String expstr = "((5-3)*8-2)";
-		String expstr2 = "(5-3)*(8-2)";
-		System.out.println(expstr + "  " + isValid(expstr2));
+		System.out.println("(()" + " ----> " + isValid("(()"));
+		System.out.println("(())" + " ----> " + isValid("(())"));
+		System.out.println("(()))" + " ----> " + isValid("(()))"));
 	}
 
 }

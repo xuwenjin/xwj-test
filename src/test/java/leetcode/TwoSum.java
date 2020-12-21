@@ -16,8 +16,8 @@ import java.util.Map;
 public class TwoSum {
 	
 	public static void main(String[] args) {
-		int[] nums = {2, 7, 11, 15};
-		int target = 9;
+		int[] nums = {3, 2, 4};
+		int target = 6;
 		System.out.println(Arrays.toString(test1(nums, target)));
 		System.out.println(Arrays.toString(test2(nums, target)));
 	}
@@ -46,7 +46,7 @@ public class TwoSum {
 		}
 		for (int i = 0; i < nums.length; i++) {
 			Integer j = map.get(nums[i]);
-			if (j != null) {
+			if (j != null && i != j) {
 				result[0] = i;
 				result[1] = j;
 				return result;
