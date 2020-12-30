@@ -14,36 +14,46 @@ import java.util.Map;
  * nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].
  */
 public class TwoSum {
-	
+
 	public static void main(String[] args) {
-		int[] nums = {3, 2, 4};
+		int[] nums = { 3, 2, 4 };
 		int target = 6;
 		System.out.println(Arrays.toString(test1(nums, target)));
 		System.out.println(Arrays.toString(test2(nums, target)));
 	}
 
+	/**
+	 * 暴力解法，时间复杂度O(n^2)
+	 */
 	public static int[] test1(int[] nums, int target) {
 		int[] result = new int[2];
 		for (int i = 0; i < nums.length; i++) {
-			if (i < nums.length -1) {
+			if (i < nums.length - 1) {
 				for (int j = i + 1; j < nums.length; j++) {
 					if (nums[i] + nums[j] == target) {
 						result[0] = i;
 						result[1] = j;
 						return result;
-					} 
+					}
 				}
 			}
 		}
 		return null;
 	}
-	
+
+	/**
+	 * 优化解法，时间复杂度O(n)
+	 */
 	public static int[] test2(int[] nums, int target) {
 		int[] result = new int[2];
+
+		// 1、遍历数组，生成一个map。key为当前数的另一个半，value为当前数的下标
 		Map<Integer, Integer> map = new HashMap<>();
 		for (int i = 0; i < nums.length; i++) {
 			map.put(target - nums[i], i);
 		}
+
+		// 2、遍历数据，得到两个下标
 		for (int i = 0; i < nums.length; i++) {
 			Integer j = map.get(nums[i]);
 			if (j != null && i != j) {

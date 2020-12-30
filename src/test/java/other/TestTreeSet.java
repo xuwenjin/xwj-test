@@ -41,7 +41,6 @@ public class TestTreeSet {
 		System.out.println(treeSet.tailSet(3)); // 查询大于指定数字的元素集合
 		System.out.println(treeSet.headSet(3)); // 查询小于指定数字的元素集合
 		System.out.println(treeSet.subSet(3, 6));// 查询指定数字区间的元素集合
-
 	}
 
 }
