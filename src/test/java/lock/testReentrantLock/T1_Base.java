@@ -15,18 +15,43 @@ public class T1_Base {
 
 	static Lock lock = new ReentrantLock();
 
-	public static void main(String[] args) {
-		new Thread(() -> test(), "线程A").start();
-		new Thread(() -> test(), "线程B").start();
-		new Thread(() -> test(), "线程C").start();
+	public static void main(String[] args) throws InterruptedException {
+		// new Thread(() -> testLock(), "A").start();
+		// new Thread(() -> testLock(), "B").start();
+		// new Thread(() -> testLock(), "C").start();
+		new Thread(() -> testTryLock(), "A").start();
+		TimeUnit.MILLISECONDS.sleep(10);
+		new Thread(() -> testTryLock(), "B").start();
 	}
 
-	private static void test() {
+	static void testLock() {
 		try {
-			// 默认是非公平锁
 			lock.lock();
 			System.out.println(Thread.currentThread().getName() + "获取了锁");
 			TimeUnit.MILLISECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+	}
+
+	/**
+	 * tryLock：在指定的时间内如果获取到锁就返回true，获取不到则返回false(会抛出异常：IllegalMonitorStateException)
+	 * 
+	 * 这种机制避免了线程无限期的等待锁释放
+	 */
+	static void testTryLock() {
+		try {
+			String threadName = Thread.currentThread().getName();
+			lock.tryLock(1000, TimeUnit.MILLISECONDS);
+			System.out.println(threadName + "获取了锁");
+			if ("A".equals(threadName)) {
+				TimeUnit.MILLISECONDS.sleep(1500);
+			}
+			if ("B".equals(threadName)) {
+				TimeUnit.MILLISECONDS.sleep(500);
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
