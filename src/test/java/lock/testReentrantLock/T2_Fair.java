@@ -17,20 +17,25 @@ public class T2_Fair {
 		new Thread(() -> test(), "线程A").start();
 		new Thread(() -> test(), "线程B").start();
 		new Thread(() -> test(), "线程C").start();
+		new Thread(() -> test(), "线程D").start();
+		new Thread(() -> test(), "线程E").start();
 	}
 
+	/**
+	 * 由于每个线程持有锁之后，会sleep一段时间，所以，结果大概率上是按照线程执行顺序来
+	 * 
+	 * 比如线程A先持有锁，在A没有释放锁之前，还有线程(比如B和C)来获取锁时，会先放入等待队列。如果在A释放锁时，会先从队里头取等待的线程，然后该线程获取锁
+	 * 谁先来的，谁先获取锁，所以是公平的
+	 */
 	private static void test() {
-		for (int i = 0; i < 2; i++) {
-			try {
-				// 每次遍历，三个线程执行顺序都一样
-				lock.lock();
-				System.out.println("第" + i + "次--" + Thread.currentThread().getName() + "获取了锁");
-				TimeUnit.MILLISECONDS.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} finally {
-				lock.unlock();
-			}
+		try {
+			lock.lock();
+			System.out.println(Thread.currentThread().getName() + "获取了锁");
+			TimeUnit.MILLISECONDS.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
 		}
 	}
 

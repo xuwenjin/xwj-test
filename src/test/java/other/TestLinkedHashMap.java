@@ -46,6 +46,7 @@ public class TestLinkedHashMap {
 		// 判断value是否存在
 		System.out.println(map.containsValue("111"));
 		System.out.println(map.containsValue("value1"));
+		System.out.println("---------------------");
 	}
 
 	/**
