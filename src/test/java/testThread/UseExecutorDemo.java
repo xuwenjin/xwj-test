@@ -23,32 +23,43 @@ import util.IdWorker;
  */
 public class UseExecutorDemo {
 
+	private int parallism;
+	private ExecutorService pool;
+
+	public UseExecutorDemo() {
+		// CPU的核心数
+		parallism = Runtime.getRuntime().availableProcessors();
+		// 默认就用cpu核心数了
+		pool = Executors.newFixedThreadPool(parallism);
+	}
+
 	public static void main(String[] args) {
+		UseExecutorDemo demo = new UseExecutorDemo();
+
+		// 结果：时间差不多
 		List<String> strList = IdWorker.getStrList(10000);
-		testExecute(strList);
-		testExecute2(strList);
+		demo.testExecute(strList);
+		demo.testExecute2(strList);
 	}
 
 	@SneakyThrows
-	public static void testExecute(List<String> strList) {
+	public void testExecute(List<String> strList) {
 		long start = System.currentTimeMillis();
-		
-		int threadNum = 100;
+
+		int threadNum = parallism;
 		final CountDownLatch countDownLatch = new CountDownLatch(threadNum);
 
 		List<String> resultList = new ArrayList<>();
-		ExecutorService executor = Executors.newFixedThreadPool(threadNum);
 		IntStream.range(0, threadNum).forEach(index -> {
-			// 将10000个数据分成100份，每份100个数
-			List<String> list = new ArrayList<>(100);
-			list.addAll(strList.subList(index * 100, (index + 1) * 100));
-
-			Future<List<String>> task = executor.submit(new Callable<List<String>>() {
+			int perLen = strList.size() / threadNum;
+			List<String> list = new ArrayList<>(perLen);
+			list.addAll(strList.subList(index * perLen, (index + 1) * perLen));
+			Future<List<String>> task = pool.submit(new Callable<List<String>>() {
 				@Override
 				public List<String> call() throws Exception {
 					List<String> resultList = new ArrayList<>();
 					for (String str : list) {
-						if (isMatch(strList, str)) {
+						if (isMatch(str)) {
 							resultList.add(str);
 						}
 					}
@@ -69,16 +80,16 @@ public class UseExecutorDemo {
 			}
 		});
 		countDownLatch.await();
-		executor.shutdown();
+		pool.shutdown();
 		long end = System.currentTimeMillis();
 		System.out.println("匹配个数：" + resultList.size() + ", 用时" + (end - start));
 	}
 
-	public static void testExecute2(List<String> strList) {
+	public void testExecute2(List<String> strList) {
 		long start = System.currentTimeMillis();
 		List<String> resultList = new ArrayList<>();
 		for (String str : strList) {
-			if (isMatch(strList, str)) {
+			if (isMatch(str)) {
 				resultList.add(str);
 			}
 		}
@@ -86,7 +97,7 @@ public class UseExecutorDemo {
 		System.out.println("匹配个数：" + resultList.size() + ", 用时" + (end - start));
 	}
 
-	private static boolean isMatch(List<String> strList, String str) {
+	private boolean isMatch(String str) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(2);
 		} catch (InterruptedException e) {

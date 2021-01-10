@@ -16,7 +16,7 @@ public class Counter {
 	public void inc(int index) {
 		wlock.lock(); // 加写锁
 		try {
-			System.out.println(Thread.currentThread().getName() + " -----> 加写锁");
+			System.out.println(Thread.currentThread().getName() + " -----> 加【写】锁");
 			counts[index] += 1;
 			try {
 				TimeUnit.SECONDS.sleep(1);
@@ -25,18 +25,18 @@ public class Counter {
 			}
 		} finally {
 			wlock.unlock(); // 释放写锁
-			System.out.println(Thread.currentThread().getName() + " -----> 解写锁");
+			System.out.println(Thread.currentThread().getName() + " -----> 解【写】锁");
 		}
 	}
 
 	public int[] get() {
 		rlock.lock(); // 加读锁
 		try {
-			System.out.println(Thread.currentThread().getName() + " -----> 加读锁");
+			System.out.println(Thread.currentThread().getName() + " -----> 加【读】锁");
 			return Arrays.copyOf(counts, counts.length);
 		} finally {
 			rlock.unlock(); // 释放读锁
-			System.out.println(Thread.currentThread().getName() + " -----> 解读锁");
+			System.out.println(Thread.currentThread().getName() + " -----> 解【读】锁");
 		}
 	}
 
