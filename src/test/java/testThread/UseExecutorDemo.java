@@ -19,7 +19,13 @@ import util.IdWorker;
 /**
  * 多线程使用示例
  * 
- * @author xuwenjin
+ * ForkJoinPool与普通线程池的主要区别是实现了工作窃取算法(当一个任务等待它通过fork操作创建的子任务完成时，执行该任务的线
+ * 程（称为工作线程）会寻找其他还为被执行的任务，并且开始执行这些任务。也就是等在自己的子任务完成时，还可以执行其他任务)
+ * 
+ * 底层区别：
+ * 1、普通线程池所有线程共享一个工作队列，有空闲线程时工作队列中的任务才能得到执行
+ * 2、ForkJoinPool中的每个线程有自己独立的工作队列，每个工作线程运行中产生新的任务，放在队尾
+ * 3、某个工作线程会尝试窃取别个工作线程队列中的任务，从队列头部窃取
  */
 public class UseExecutorDemo {
 
@@ -134,8 +140,10 @@ public class UseExecutorDemo {
 				int mid = from + ((to - from) >> 1);
 				MyForkTask taskLeft = new MyForkTask(list, from, mid);
 				MyForkTask taskRight = new MyForkTask(list, mid, to);
+
 				// 并行执行两个小任务
 				invokeAll(taskLeft, taskRight);
+
 				List<String> result = new ArrayList<>(taskLeft.join());
 				result.addAll(taskRight.join());
 				return result;
