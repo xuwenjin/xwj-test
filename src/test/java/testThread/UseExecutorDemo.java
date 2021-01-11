@@ -63,7 +63,6 @@ public class UseExecutorDemo {
 		long start = System.currentTimeMillis();
 
 		int threadNum = parallism;
-		List<String> resultList = new ArrayList<>();
 		List<Callable<List<String>>> callableList = new ArrayList<>();
 		IntStream.range(0, threadNum).forEach(index -> {
 			int perLen = strList.size() / threadNum;
@@ -76,6 +75,7 @@ public class UseExecutorDemo {
 		List<Future<List<String>>> futureList = pool.invokeAll(callableList);
 
 		// 获取执行结果
+		List<String> resultList = new ArrayList<>();
 		for (Future<List<String>> future : futureList) {
 			List<String> result = future.get();
 			if (!CollectionUtils.isEmpty(result)) {
