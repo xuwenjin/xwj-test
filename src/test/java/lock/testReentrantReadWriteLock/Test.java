@@ -8,8 +8,8 @@ import java.util.concurrent.Executors;
 /**
  * 读写锁ReentrantReadWriteLock
  * 
- * 只允许一个线程写入(写锁加锁时，其它读锁和写锁都阻塞住)
- * 没有写入时，多个线程允许同时读（提高性能）。
+ * 1、在使用读锁时，其他线程可以进行读操作，但不可进行写操作
+ * 2、在使用写锁时，其他线程读、写操作都不可以
  */
 public class Test {
 
@@ -48,6 +48,9 @@ public class Test {
 		}).start();
 		new Thread(() -> {
 			System.out.println(Arrays.toString(counter.get()));
+		}).start();
+		new Thread(() -> {
+			counter.inc(2);
 		}).start();
 		new Thread(() -> {
 			System.out.println(Arrays.toString(counter.get()));
