@@ -2,8 +2,14 @@ package calc;
 
 import org.junit.Test;
 
-public class Calc {
+/**
+ * 计算类
+ */
+public class CommonCalc {
 
+	/**
+	 * 多目运算
+	 */
 	@Test
 	public void test1() {
 		int num = 2;

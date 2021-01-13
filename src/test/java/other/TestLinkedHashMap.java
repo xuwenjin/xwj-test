@@ -14,6 +14,8 @@ public class TestLinkedHashMap {
 
 	/**
 	 * LinkedHashMap基本使用
+	 * 
+	 * 保存了元素的插入顺序，在用 Iterator 遍历时，先取到的记录肯定是先插入的，遍历比 HashMap 慢
 	 */
 	@Test
 	public void test1() {
