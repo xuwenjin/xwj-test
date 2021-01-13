@@ -6,12 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 算术-字符串
- * 
- * @author xwj
- *
+ * 给定一个字符串，找到最长不含有重复字符的子字符串
  */
-class AlgStr {
+class LongestSubstring {
 
 	/**
 	 * 给定一个字符串，找到最长不含有重复字符的子字符串
