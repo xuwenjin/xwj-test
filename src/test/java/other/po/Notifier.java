@@ -8,7 +8,7 @@ import java.util.concurrent.BlockingQueue;
  * 
  * @author xuwenjin 2019年07月15日
  */
-public class Notifier extends Thread {
+public class Notifier implements Runnable {
 
 	/**
 	 * ArrayBlockingQueue：

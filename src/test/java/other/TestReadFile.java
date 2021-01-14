@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
@@ -31,7 +33,7 @@ public class TestReadFile {
 
 	/**文件路径*/
 	private final String FILE_PATH = "D:/logs/input.txt";
-	// private final String FILE_PATH = "D:/logs/catalina.log.2020-11-09";
+	// private final String FILE_PATH = "D:/logs/error.2020-12-20.log";
 
 	/**sleep时长(单位毫秒)*/
 	private final long SLEEP_TIME = 1000;
@@ -70,7 +72,7 @@ public class TestReadFile {
 		try {
 			inputStream = new FileInputStream(FILE_PATH);
 			sc = new Scanner(inputStream, "UTF-8");
-			
+
 			// 一行一行读取文件
 			while (sc.hasNextLine()) {
 				lines.add(sc.nextLine());
@@ -99,11 +101,11 @@ public class TestReadFile {
 		try {
 			inputStream = new FileInputStream(FILE_PATH);
 			sc = new Scanner(inputStream, "UTF-8");
-			
+
 			// 创建被观察者、观察者
 			MyObservable sm = new MyObservable();
 			sm.addObserver(new MyObserver(SLEEP_TIME));
-			
+
 			// 一行一行读取文件
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
@@ -149,9 +151,8 @@ public class TestReadFile {
 					// 计数器的值减一
 					latch.countDown();
 				}
-			})
-			.observeOn(Schedulers.io())// 为观察者创建一个新线程(从线程池中取，没有则创建，无上限)
-			.subscribe(new Rxjava2Observer<Object>(SLEEP_TIME)); // 订阅
+			}).observeOn(Schedulers.io())// 为观察者创建一个新线程(从线程池中取，没有则创建，无上限)
+					.subscribe(new Rxjava2Observer<Object>(SLEEP_TIME)); // 订阅
 		} catch (Exception e) {
 			System.err.println("该路径下找不到该文件，请重试: " + e.getMessage());
 		}
@@ -181,9 +182,10 @@ public class TestReadFile {
 			inputStream = new FileInputStream(FILE_PATH);
 			sc = new Scanner(inputStream, "UTF-8");
 
-			// 创建线程并启动
+			// 从线程池中获取一个线程并启动
 			final Notifier notifier = new Notifier();
-			notifier.start();
+			ExecutorService pool = Executors.newSingleThreadExecutor();
+			pool.execute(notifier);
 
 			// 一行一行读取文件
 			while (sc.hasNextLine()) {
@@ -201,6 +203,10 @@ public class TestReadFile {
 		}
 		System.out.println(lines.size()); // 12
 		System.out.println("用时：" + (System.currentTimeMillis() - t1));
+
+		// 防止主线程已经执行完，但是子线程还在执行
+		for (;;)
+			;
 	}
 
 	/**

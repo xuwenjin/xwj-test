@@ -3,6 +3,8 @@ package other;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import other.po.Notifier;
 
@@ -17,8 +19,10 @@ public class UseArrayBlockingQueue {
 	 * 控制台输入信息，然后移除打印结果
 	 */
 	public static void main(String[] args) throws IOException {
-		final Notifier notifier = new Notifier();
-		notifier.start();
+		Notifier notifier = new Notifier();
+		// 从线程池中获取一个线程并启动
+		ExecutorService pool = Executors.newSingleThreadExecutor();
+		pool.execute(notifier);
 
 		// 控制台输入内容
 		for (;;) {
