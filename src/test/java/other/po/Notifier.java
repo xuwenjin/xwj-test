@@ -22,6 +22,7 @@ public class Notifier implements Runnable {
 	 * 添加任务
 	 */
 	public void addTask(String line) {
+		// 向队列中添加元素
 		queue.offer(line);
 	}
 
@@ -29,6 +30,7 @@ public class Notifier implements Runnable {
 	public void run() {
 		for (;;) {
 			try {
+				// 队列为空时，阻塞，否则弹出一个队头的元素
 				String line = queue.take();
 				System.out.println("line---->" + line + "\t");
 			} catch (InterruptedException e) {
