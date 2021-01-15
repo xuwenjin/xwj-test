@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
@@ -35,16 +36,37 @@ public class TestExecutorService {
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(2);
+					System.out.println("11--->" + Thread.currentThread().getName());
+					TimeUnit.MILLISECONDS.sleep(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				System.out.println("Asynchronous task");
 			}
 		});
+		// 这里的Runnable，只是一个任务，会由executor创建的线程池中的线程执行该任务。当线程对应的任务执行完了，如果此时还有任务，该线程会继续执行任务
+		for (int i = 0; i < 20; i++) {
+			executor.execute(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						System.out.println(Thread.currentThread().getName());
+						TimeUnit.MILLISECONDS.sleep(20);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		}
+
 		// 当我们使用完成ExecutorService之后应该关闭它，否则它里面的线程会一直处于运行状态
 		// 在调用shutdown()方法之后，ExecutorService不会立即关闭，但是它不再接收新的任务，直到当前所有线程执行完成才会关闭
 		executor.shutdown();
+
+		System.out.println("main线程");
+
+		// 防止主线程已经执行完，但是子线程还在执行(只为了测试用)
+		for (;;)
+			;
 	}
 
 	@Test
@@ -58,7 +80,7 @@ public class TestExecutorService {
 			}
 		});
 		try {
-			// 如果任务执行完成，future.get()方法会返回结果。由于Runnable是没有返回值的，所有下面的future.get()结果是null
+			// 如果任务执行完成，future.get()方法会返回结果。由于Runnable是没有返回值的，所以下面的future.get()结果是null
 			// 注意，future.get()方法会产生阻塞
 			System.out.println(future.get());
 		} catch (InterruptedException e) {

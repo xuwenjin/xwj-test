@@ -10,8 +10,6 @@ public class TestThreadPoolExecutor {
 		/**
 		 * corePoolSize: 2
 		 * maximumPoolSize: 5
-		 * workQueue: ArrayBlockingQueue(10)
-		 * 
 		 * 默认情况下，在创建了线程池后，线程池中的线程数为0                      ----------> 总线程数=0
 		 * 当线程数小于核心线程数时，创建线程                                                                        ----------> 总线程数<=2
 		 * 当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列                ----------> 总线程数>2 && 总线程数<12
@@ -21,9 +19,15 @@ public class TestThreadPoolExecutor {
 		 *   
 		 *   
 		 * keepAliveTime: 10s
-		 * 线程池中，超过corePoolSize数目的工作线程，允许空闲的最大时长为10秒
+		 * 当线程池中的线程数大于corePoolSize时，临时线程允许空闲的最大时长为10秒(即等待新任务最长10秒)，超时后空闲线程将被回收
+		 * 通过ExecutorService创建的线程池，keepAliveTime=0，表示多余的空闲线程会立即被回收
 		 * 如果allowCoreThreadTimeOut=true，那核心线程也会被回收，允许空闲的最大时长也为10秒
 		 *   
+		 *   
+		 * workQueue: ArrayBlockingQueue(10)
+		 * 指定使用ArrayBlockingQueue作为缓存队列，该队列是基于数组结构的有界队列(必须指定队列大小)
+		 * 通过ExecutorService创建的线程池，默认是LinkedBlockingQueue，该队列是基于单向列表的无界队列，默认大小是Integer.MAX_VALUE，所以不建议使用ExecutorService创建线程池
+		 * 
 		 *   
 		 * handler: 拒绝策略
 		 * AbortPolicy(默认)：丢弃任务并抛出RejectedExecutionException异常
