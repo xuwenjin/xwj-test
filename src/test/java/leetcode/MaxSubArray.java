@@ -12,16 +12,16 @@ package leetcode;
 public class MaxSubArray {
 
 	public static void main(String[] args) {
-		// int[] nums = { 1, -2, 3, 10, -4, 7, 2, -5 };
-		int[] nums = { -2, -1 };
-		// System.out.println(test(nums));
+		int[] nums = { 1, -2, 3, 10, -4, 7, 2, -5 };
+		// int[] nums = { -2, -1 };
+		System.out.println(test(nums));
 		System.out.println(test2(nums));
 	}
 
 	/**
 	 * 解题分析：
 	 * 1、两根指针：i、j，都是从0开始
-	 * 2、计算中的子数组和subTotal(从i到len-1的累计值)、已知的最大子数组和subMax(每次和subTotal比较后的大值)
+	 * 2、当前子数组和subTotal(从i到len-1的累计值)、当前最大子数组和subMax(每次和subTotal比较后的大值)
 	 * 3、i和j不断移动时，比较subMax的最大值，即为最大子数组和
 	 * 
 	 * 过程如下(示例[1, -2, 3, 10, -4, 7, 2, -5, 6])：
@@ -38,11 +38,15 @@ public class MaxSubArray {
 			return nums[0];
 		}
 
-		int subMax = 0;
+		int subMax = nums[0];
 		for (int i = 0; i < len; i++) {
-			int subTotal = 0;
+			// 每轮开始遍历时，将subTotal置为当前轮第一个值
+			int subTotal = nums[i];
 			for (int j = i; j < len; j++) {
-				subTotal += nums[j];
+				if (j != i) {
+					// j不是当前轮第一个值时，再累加，防止重复累加
+					subTotal += nums[j];
+				}
 				subMax = Math.max(subMax, subTotal);
 			}
 		}
