@@ -20,8 +20,8 @@ import entity.XwjUser;
  * 其中ThreadLocalMap是当前线程(Thread)的一个成员变量。所以ThreadLocal.set()，相当于是对当前线程的成员变量赋值，也就是值只能当前线程所有
  * 
  * Thread中维护了ThreadLocalMap，所以ThreadLocalMap的生命周期和Thread（当前线程）一样长。
- * 如果Entry的key使用强引用，引用的ThreadLocal的对象被回收了，但是ThreadLocalMap还持有ThreadLocal的强引用，如果没有手动删除，ThreadLocal不会被回收，导致Entry内存泄漏
- * 如果key为弱引用，引用的ThreadLocal的对象被回收了，由于ThreadLocalMap持有ThreadLocal的弱引用，即使没有手动删除，ThreadLocal也会被回收
+ * 如果Entry的key使用强引用，引用的ThreadLocal的对象需要被回收，但是ThreadLocalMap还持有ThreadLocal的强引用，如果没有手动删除，ThreadLocal就不会被回收，导致Entry内存泄漏
+ * 如果key为弱引用，引用的ThreadLocal的对象需要被回收，由于ThreadLocalMap持有ThreadLocal的弱引用，即使没有手动删除，ThreadLocal也会被回收
  * 
  * 就算Entry的key被回收了，如果当前线程不结束，那value仍然存在。所以在使用完ThreadLocal后，一定要调用remove()方法
  */
