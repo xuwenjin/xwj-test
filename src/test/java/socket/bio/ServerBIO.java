@@ -1,4 +1,4 @@
-package socket;
+package socket.bio;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -6,20 +6,18 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import socket.Consts;
+
 /**
- * socket服务端(接收客户端请求并相应) ----- BIO模型
+ * BIO 阻塞通信-服务端
  * 
  * 服务器接收客户端请求步骤：
- * 
  * 1.创建一个ServerSocket实例，监听客户端发来的请求
- * 
  * 2.与客户端获取连接后，创建一个Socket实例，利用I/O流与客户端进行通信，完毕后关闭Socket。
  * 
  * 当然，服务器可以接收多个客户端的请求，所以如果服务器是一个一个顺序响应肯定会带来不好的体验，因此使用多线程来为多个客户端提供服务
  * 
- * 
  * BIO模型，会有两次阻塞：1、serverSocket.accept() 2、input.readLine()
- * 
  * 
  * ServerSocket详解：https://www.jianshu.com/p/665994c2e784
  */
