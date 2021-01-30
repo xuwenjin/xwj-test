@@ -18,7 +18,7 @@ import socket.Consts;
  * Buffer(缓冲区)：本质上是一块可以写入数据，也可以从中读取数据的内内存
  * Selector(多路复用器)：可以监听一个或多个NIO通道，并确定哪些通道已经准备好进行读取或者写入
  * 
- * NIO 模型，这两种方式都不会阻塞：1、serverSocket.accept() 2、input.readLine()
+ * NIO 模型，这两种方式都不会阻塞：1、accept() 2、read()
  */
 public class ServerNIO {
 
@@ -45,12 +45,15 @@ public class ServerNIO {
 			while (it.hasNext()) {
 				SelectionKey key = it.next();
 				if (key.isAcceptable()) { // 判断是否为accept事件
+					System.out.println("accpet事件~~");
 					SocketChannel sChannel = ssChannel.accept(); // 非阻塞
 					sChannel.configureBlocking(false); // 设置客户端非阻塞
 
 					// 6、将客户端通道注册到多路复用器，并且指定到为read事件
 					sChannel.register(selector, SelectionKey.OP_READ);
 				} else if (key.isReadable()) { // 判断是否为read事件
+					System.out.println("read事件~~");
+
 					// 7、获取当前多路复用器上的读就绪事件
 					SocketChannel sChannel = (SocketChannel) key.channel();
 
@@ -60,10 +63,11 @@ public class ServerNIO {
 					while ((len = sChannel.read(buffer)) > 0) {
 						buffer.flip();
 						String clientInputStr = new String(buffer.array(), 0, len);
-						System.out.println("客户端[" + sChannel.socket().getPort() + "]发送内容：" + clientInputStr);
+						System.out.println("客户端[" + sChannel.socket().getPort() + "]发送的内容：" + clientInputStr);
 						buffer.clear();
 					}
 				}
+
 				// 9、事件处理完后，移除事件
 				it.remove();
 			}

@@ -22,6 +22,7 @@ public class ClientNIO {
 
 		// 2、分配缓冲区大小
 		ByteBuffer buffer = ByteBuffer.allocate(1024);
+
 		// 3、发送数据给服务端
 		Scanner sc = new Scanner(System.in);
 		while (true) {
@@ -32,7 +33,6 @@ public class ClientNIO {
 			sChannel.write(buffer);
 			buffer.clear();
 		}
-
 	}
 
 }
