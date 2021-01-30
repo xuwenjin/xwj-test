@@ -8,7 +8,7 @@ import java.net.Socket;
 import socket.Consts;
 
 /**
- * socket客户端
+ * BIO 同步并阻塞-服务端
  * 
  * 客户端向服务器发送请求可分为以下步骤：
  * 

@@ -9,7 +9,7 @@ import java.net.Socket;
 import socket.Consts;
 
 /**
- * BIO 阻塞通信-服务端
+ * BIO 同步并阻塞-服务端
  * 
  * 服务器接收客户端请求步骤：
  * 1.创建一个ServerSocket实例，监听客户端发来的请求

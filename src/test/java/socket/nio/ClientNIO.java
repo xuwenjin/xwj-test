@@ -8,7 +8,7 @@ import java.util.Scanner;
 import socket.Consts;
 
 /**
- * NIO 非阻塞通信-客户端
+ * NIO 同步非阻塞-客户端
  */
 public class ClientNIO {
 

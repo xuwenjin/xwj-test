@@ -11,7 +11,7 @@ import java.util.Iterator;
 import socket.Consts;
 
 /**
- * NIO 非阻塞通信-服务端
+ * NIO 同步非阻塞-服务端
  * 
  * NIO 三大核心部分：
  * Channel(通道)：支持(同步或异步)读取或写入缓存区，也可以同时进行读写
@@ -27,7 +27,7 @@ public class ServerNIO {
 
 		// 1、获取服务端通道
 		ServerSocketChannel ssChannel = ServerSocketChannel.open();
-		ssChannel.bind(new InetSocketAddress(Consts.SERVER_PORT));
+		ssChannel.bind(new InetSocketAddress(Consts.SERVER_PORT));// 绑定客户端连接的端口
 		ssChannel.configureBlocking(false); // 设置非阻塞
 
 		// 2、获取多路复用器
