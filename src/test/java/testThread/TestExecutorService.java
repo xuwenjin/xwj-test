@@ -26,6 +26,14 @@ public class TestExecutorService {
 	 *	2. newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。
 	 * 	3. newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。
 	 *	4. newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。
+	 *
+	 * 线程池状态含义：
+	 *  RUNNING：接受新任务并且处理阻塞队列里的任务
+	 *  SHUTDOWN：拒绝新任务但是处理阻塞队列里的任务(显式调用 shutdown()方法后)
+	 *  STOP：拒绝新任务并且抛弃阻塞队列里的任务，同时会中断正在处理的任务(显式调用 shutdownNow()方法后)
+	 *  TIDYING：所有任务都执行完（包含阻塞队列里面任务）当前线程池活动线程为 0，将要调用 terminated 方法
+	 *  TERMINATED：终止状态，terminated方法调用完成以后的状态
+	 * 
 	 */
 
 	@Test
