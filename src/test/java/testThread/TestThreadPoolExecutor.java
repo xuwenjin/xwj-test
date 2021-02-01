@@ -9,8 +9,8 @@ public class TestThreadPoolExecutor {
 	public static void main(String[] args) {
 		/**
 		 * corePoolSize: 2
-		 * maximumPoolSize: 5
-		 * workQueue: ArrayBlockingQueue(10)
+		 * maximumPoolSize: 4
+		 * workQueue: ArrayBlockingQueue(5)
 		 * 默认情况下，在创建了线程池后，线程池中的线程数为0                          ----------> 当前线程数=0，任务数=0
 		 * 当任务数小于等于核心线程数时，创建线程                                                                         ----------> 当前线程数<=2，任务数>0
 		 * 当任务数大于核心线程数，且任务队列未满时，将任务放入任务队列                        	   ----------> 当前线程数=2，任务数>2
