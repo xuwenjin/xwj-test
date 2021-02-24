@@ -90,6 +90,11 @@ public class CommonTest {
 		Integer i22 = 333;
 		System.out.println(i11 == i22);// 输出 false
 
+		Integer i111 = 40;
+		Integer i222 = new Integer(40);
+		System.out.println(i111 == i222);// 输出 false
+
+		// Double类型，没有使用常量池技术
 		Double i3 = 1.2;
 		Double i4 = 1.2;
 		System.out.println(i3 == i4);// 输出 false
