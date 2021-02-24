@@ -46,9 +46,6 @@ class LongestSubstring {
 
 	/**
 	 * 解题分析：
-	 * 1、滑动窗口。
-	 * 其实就是一个队列，比如abcbcba，进入这个队列（窗口）为 abc 满足题目要求，当再进入 b，队列变成了 abcb，这时不满足要求。所以，我们要移动这个队列。
-	 * 移动队列方法：将队列中第一次出现b及b之前的所有元素移除
 	 */
 	public static int test2(String str) {
 		HashMap<Character, Integer> map = new HashMap<>();

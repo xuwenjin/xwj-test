@@ -14,8 +14,8 @@ import java.util.Arrays;
 public class MaxSubArray {
 
 	public static void main(String[] args) {
-		// int[] nums = { 1, -2, 3, 10, -4, 7, 2, -5 };
-		int[] nums = { -2, -1 };
+		int[] nums = { 1, -2, 3, 10, -4, 7, 2, -5 };
+		// int[] nums = { -2, -1 };
 		System.out.println(test(nums));
 		System.out.println(test2(nums));
 		System.out.println(test3(nums));
@@ -116,7 +116,7 @@ public class MaxSubArray {
 			return nums[0];
 		}
 
-		int mid = len / 2;
+		int mid = len >> 1;
 		int leftMax = test3(Arrays.copyOfRange(nums, 0, mid));
 		int rightMax = test3(Arrays.copyOfRange(nums, mid, len));
 
