@@ -45,7 +45,7 @@ public class MergeArr {
 			numArr1[index--] = numArr1[m - 1] > numArr2[n - 1] ? numArr1[(m--) - 1] : numArr2[(n--) - 1];
 		}
 
-		// 当numArr2[0] < numArr1[0]时，上面一步合并完后，会出现numArr2中任然有元素，这里还得继续处理
+		// 当numArr2[0] < numArr1[0]时，上面一步合并完后，会出现numArr2中仍然有元素，这里还得继续处理
 		if (m == 0 && n > 0) {
 			System.arraycopy(numArr2, 0, numArr1, 0, n);
 		}
