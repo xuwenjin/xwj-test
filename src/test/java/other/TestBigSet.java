@@ -61,16 +61,14 @@ public class TestBigSet {
 		Random random = new Random();
 
 		List<Integer> list = new ArrayList<>();
+		BitSet bitSet = new BitSet(count);
 		for (int i = 0; i < count; i++) {
 			int randomResult = random.nextInt(count);
 			list.add(randomResult);
+			
+			bitSet.set(randomResult);
 		}
 		System.out.println("产生的随机数有：" + list);
-
-		BitSet bitSet = new BitSet(count);
-		for (int i = 0; i < count; i++) {
-			bitSet.set(list.get(i));
-		}
 
 		System.out.println("在0~" + count + "范围内的随机数有  " + bitSet.cardinality() + " 个");
 		List<Integer> excludeList = new ArrayList<>(count - bitSet.cardinality());

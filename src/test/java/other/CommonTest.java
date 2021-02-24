@@ -56,9 +56,6 @@ public class CommonTest {
 		list.forEach(d -> System.out.println(d));
 	}
 
-	/**
-	 * 
-	 */
 	@Test
 	public void test3() {
 		List<XwjUser> list = new ArrayList<>();
@@ -72,6 +69,30 @@ public class CommonTest {
 
 		System.out.println(list.size());
 		System.out.println(user1.getId());
+	}
+
+	/**
+	 * Java 基本类型的包装类的大部分都实现了常量池技术，即 Byte,Short,Integer,Long,Character,Boolean；
+	 * 这 5 种包装类默认创建了数值[-128，127] 的相应类型的缓存数据，但是超出此范围仍然会去创建新的对象。
+	 */
+	@Test
+	public void testBasicType() {
+		Short s1 = 33;
+		Short s2 = 33;
+		System.out.println(s1 == s2);// 输出 true
+
+		Integer i1 = 33;
+		Integer i2 = 33;
+		System.out.println(i1 == i2);// 输出 true
+
+		// 超出范围，创建新对象
+		Integer i11 = 333;
+		Integer i22 = 333;
+		System.out.println(i11 == i22);// 输出 false
+
+		Double i3 = 1.2;
+		Double i4 = 1.2;
+		System.out.println(i3 == i4);// 输出 false
 	}
 
 }

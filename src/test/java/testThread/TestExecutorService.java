@@ -102,7 +102,7 @@ public class TestExecutorService {
 	public void testSubmit2() {
 		ExecutorService executor = Executors.newFixedThreadPool(10);
 		// submit(Callable)：会返回一个future对象，submit(Callable)接收的是一个Callable的实现
-		// Callable接口中的call()方法有一个返回值，可以返回任务的执行结果。而Runnable接口中的run()方法是void的，没有返回值
+		// Callable接口中的call()方法有一个返回值，可以返回任务的执行结果
 		Future<?> future = executor.submit(new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
