@@ -20,6 +20,7 @@ public class TwoSum {
 		int target = 6;
 		System.out.println(Arrays.toString(test1(nums, target)));
 		System.out.println(Arrays.toString(test2(nums, target)));
+		System.out.println(Arrays.toString(test3(nums, target)));
 	}
 
 	/**
@@ -61,6 +62,22 @@ public class TwoSum {
 				result[1] = j;
 				return result;
 			}
+		}
+		return null;
+	}
+
+	/**
+	 * 解法2的升级版
+	 */
+	public static int[] test3(int[] nums, int target) {
+		// key为当前数的另一个半，value为当前数的下标
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < nums.length; i++) {
+			int remain = target - nums[i];
+			if (map.containsKey(remain)) {
+				return new int[] { map.get(remain), i };
+			}
+			map.put(nums[i], i);
 		}
 		return null;
 	}

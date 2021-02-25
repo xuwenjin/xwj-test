@@ -30,7 +30,10 @@ public class TestTreeSet {
 		treeSet.add(1);
 		treeSet.add(9);
 		treeSet.add(8);
+		
 		System.out.println(treeSet);
+		System.out.println(treeSet.descendingSet()); // 倒排序
+		
 		System.out.println(treeSet.first()); // 取最小的元素
 		System.out.println(treeSet.last()); // 取最大的元素
 		System.out.println(treeSet.pollFirst()); // 弹出最小的元素(会影响treeSet)
