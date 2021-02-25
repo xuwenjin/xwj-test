@@ -12,8 +12,10 @@ public class ArrSort {
 	public static void main(String[] args) {
 		int[] arr = { 6, 2, 5, 9, 1, 3, 8, 7 };
 		// bubbleSort(arr);
-		int[] sortArr = mergeSort(arr);
-		System.out.println(Arrays.toString(sortArr));
+		bubbleSort2(arr);
+		// bubbleSort3(arr);
+		// int[] sortArr = mergeSort(arr);
+		// System.out.println(Arrays.toString(sortArr));
 	}
 
 	/**
@@ -32,6 +34,72 @@ public class ArrSort {
 					arr[j] = arr[j + 1];
 					arr[j + 1] = temp;
 				}
+			}
+			System.out.println("第【" + i + "】遍历后结果：" + Arrays.toString(arr));
+		}
+	}
+
+	/**
+	 * 冒泡排序升级版1：
+	 * 1、当某一轮遍历后，发现该轮没有需要交换值的情况，则表示整个数组已经排好序了，不需要再进行遍历了
+	 * 
+	 * 参考地址：https://www.cnblogs.com/SysoCjs/p/9398491.html
+	 */
+	public static void bubbleSort2(int[] arr) {
+		int len = arr.length;
+		for (int i = 0; i < len; i++) {
+			boolean isSorted = true; // 记录本轮是否交换值了
+
+			// 每比较完一轮后，本轮最大的数会在最右边，下一轮就可以少比较一次(大数就可以不用参加比较了)
+			for (int j = 0; j < len - i - 1; j++) {
+				if (arr[j] > arr[j + 1]) {
+					int temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+
+					isSorted = false;
+				}
+			}
+			System.out.println("第【" + i + "】遍历后结果：" + Arrays.toString(arr));
+
+			// 本轮没有需要交换值的情况，表示已经排好序了，直接跳出
+			if (isSorted) {
+				break;
+			}
+		}
+	}
+
+	/**
+	 * 冒泡排序升级版2：
+	 * 1、当某一轮遍历后，发现该轮没有需要交换值的情况，则表示整个数组已经排好序了，不需要再进行遍历了
+	 * 2、记录每一轮最后一次交换值时的下标，下一轮遍历时，只需要从0遍历到该下标即可(后面的有序区，可以不用再比较了)
+	 * 
+	 * 参考地址：https://www.cnblogs.com/SysoCjs/p/9398491.html
+	 */
+	public static void bubbleSort3(int[] arr) {
+		int len = arr.length;
+		for (int i = 0; i < len; i++) {
+			boolean isSorted = true; // 记录本轮是否交换值了
+			int lastChangeIndex = 0; // 记录最后一次交换值时的下标
+			int border = len - 1;
+
+			// 只需要遍历从0遍历到最近一次交换值的下标即可
+			for (int j = 0; j < border; j++) {
+				if (arr[j] > arr[j + 1]) {
+					int temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+
+					isSorted = false;
+					lastChangeIndex = j;
+				}
+			}
+			border = lastChangeIndex;
+			System.out.println("第【" + i + "】遍历后结果：" + Arrays.toString(arr) + "，border：" + border);
+
+			// 本轮没有需要交换值的情况，表示已经排好序了，直接跳出
+			if (isSorted) {
+				break;
 			}
 		}
 	}
