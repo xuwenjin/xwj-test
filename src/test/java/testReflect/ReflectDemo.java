@@ -5,10 +5,15 @@ import java.beans.PropertyDescriptor;
 /**
  * 测试PropertyDescriptor
  * 
- * PropertyDescriptor类表示JavaBean类通过存储器导出一个属性。主要方法： 1.
- * getReadMethod()，获得用于读取属性值的方法 2. getWriteMethod()，获得用于写入属性值的方法
+ * PropertyDescriptor类表示JavaBean类通过存储器导出一个属性。
  * 
- * 注：避免使用拼装方法名，反射获取Method对象。如tId,方法名格式与其他不统一，拼装方法名会错误。
+ * 主要方法： 
+ * 
+ * 1.getReadMethod()，获得用于读取属性值的方法 
+ * 
+ * 2.getWriteMethod()，获得用于写入属性值的方法
+ * 
+ * 注：避免使用拼装方法名，反射获取Method对象。如tId，方法名格式与其他不统一，拼装方法名会错误。
  * 
  * @author XU.WJ 2017年9月7日
  */
@@ -19,7 +24,7 @@ public class ReflectDemo {
 		Person p = new Person();
 		p.setId("0");
 		p.setTId("0");
-		
+
 		test(p, "id");
 		test(p, "tId");
 	}

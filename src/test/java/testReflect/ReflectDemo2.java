@@ -39,7 +39,7 @@ public class ReflectDemo2 {
 			// 获取属性的名字
 			String name = field.getName();
 			// 将属性的首字母大写
-			name = name.replaceFirst(name.substring(0, 1), name.substring(0, 1).toUpperCase());
+			name = upperCaseFirst(name);
 			Method m = (Method) clz.getMethod("get" + name);
 			Object val = m.invoke(foo);// 调用getter方法获取属性值
 			if (val != null) {
@@ -48,4 +48,16 @@ public class ReflectDemo2 {
 		}
 		return builder.toString();
 	}
+
+	/**
+	 * 将字符串首字母变成大写
+	 */
+	private static String upperCaseFirst(String str) {
+		char[] cs = str.toCharArray();
+		// 进行字母的ascii编码前移，效率要高于截取字符串进行转换的操作
+		// 小写比大写高32位
+		cs[0] -= 32;
+		return String.valueOf(cs);
+	}
+
 }
