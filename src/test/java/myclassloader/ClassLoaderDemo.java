@@ -8,7 +8,7 @@ import org.junit.Test;
 public class ClassLoaderDemo {
 
 	/**
-	 * 测试根类加载器
+	 * 测试根类加载器---Bootstrap Class Loader
 	 */
 	@Test
 	public void rootClassLoader() {
@@ -18,7 +18,7 @@ public class ClassLoaderDemo {
 	}
 
 	/**
-	 * 测试扩展类加载器
+	 * 测试扩展类加载器---Extention Class Loader
 	 */
 	@Test
 	public void extClassLoader() {
@@ -27,7 +27,7 @@ public class ClassLoaderDemo {
 	}
 
 	/**
-	 * 测试系统(应用)类加载器
+	 * 测试系统(应用)类加载器---Application Class Loader
 	 */
 	@Test
 	public void appClassLoader() {
