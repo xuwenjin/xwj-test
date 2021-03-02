@@ -53,17 +53,18 @@ public class YiWei {
 	 */
 	@Test
 	public void testSpeed() {
-		int num = 10000 * 10000;
+		int num = 10000 * 10000 * 10;
 
+		int s = 0;
 		long t1 = System.currentTimeMillis();
 		for (int i = 0; i < num; i++) {
-			int s = i * 4;
+			s = i * 4;
 		}
 		long t2 = System.currentTimeMillis();
 		System.out.println("除法运算用时：" + (t2 - t1));
 
 		for (int i = 0; i < num; i++) {
-			int s = i >> 2;
+			s = i >> 2;
 		}
 
 		long t3 = System.currentTimeMillis();

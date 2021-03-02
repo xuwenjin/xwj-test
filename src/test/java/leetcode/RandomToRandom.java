@@ -26,10 +26,11 @@ public class RandomToRandom {
 	 */
 	public static int a() {
 		int ans = 0;
+		
 		// do-while 无条件的执行一次循环体，再来判断条件表达式的值。如果表达式为true，继续循环
 		do {
 			ans = f();
-		} while (ans == 3); // 等于3，则继续调用f()函数
+		} while (ans == 3); // 等于3，则继续循环一次
 
 		// 小于3返回0，大于3返回1
 		return ans < 3 ? 0 : 1;
@@ -40,10 +41,12 @@ public class RandomToRandom {
 	 */
 	public static int b() {
 		int ans = 0;
+		
 		do {
-			// 调用三次a()函数，等概率返回二进制数000-110
+			// 调用三次a()函数，等概率返回二进制数000-111
 			ans = (a() << 2) + (a() << 1) + a();
-		} while (ans == 7); // 等于7，则继续调用b()函数
+		} while (ans == 7); // 等于7，则继续循环一次
+		
 		return ans;
 	}
 
