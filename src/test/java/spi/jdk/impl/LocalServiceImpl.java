@@ -1,8 +1,8 @@
-package inter.impl;
+package spi.jdk.impl;
 
-import inter.IService;
+import spi.jdk.IBaseService;
 
-public class LocalServiceImpl implements IService {
+public class LocalServiceImpl implements IBaseService {
 
 	@Override
 	public String sayHello() {
