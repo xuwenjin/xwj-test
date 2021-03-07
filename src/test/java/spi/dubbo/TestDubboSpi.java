@@ -11,7 +11,6 @@ import com.alibaba.dubbo.common.extension.ExtensionLoader;
  * 1、在META-INFO/dubbo下，新建文件名称是服务类型的完全限定名，如spi.dubbo.IDdService
  * 2、在spi.dubbo.IDdService文件中，写入key = value(实现类全类名)
  * 3、在IDdService接口上，一定要加上@SPI注解
- * 
  */
 public class TestDubboSpi {
 
@@ -36,6 +35,8 @@ public class TestDubboSpi {
 
 	/**
 	 * 自适应扩展@Adaptive。作用于实现类上(优先级会高于放在接口的方法上)
+	 * 
+	 * 参考地址：https://zhuanlan.zhihu.com/p/87075689
 	 */
 	@Test
 	public void testAdaptive() {
@@ -57,7 +58,9 @@ public class TestDubboSpi {
 		ExtensionLoader<IDdService> loader = ExtensionLoader.getExtensionLoader(IDdService.class);
 
 		// 解析url参数(?key=value)，通过key，可以得到具体的实现类
-		// 动态生成 $Adaptive class：生成java类，compiler编译(javassit)
+		// 生成IDdService的动态子类：IDdService$Adaptive
+		// 1、先生成动态子类的字符串(ExtensionLoader.createAdaptiveExtensionClassCode)，
+		// 2、然后使用javassist(默认)进行Compiler，得到IDdService的字节码文件对象(Class对象)
 		URL url = URL.valueOf("dubbo://localhost:8888/test?demo=local");
 		IDdService ddService = loader.getAdaptiveExtension();
 		ddService.getScheme(url);

@@ -1,11 +1,10 @@
 package spi.dubbo.impl;
 
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.extension.Adaptive;
 
 import spi.dubbo.IDdService;
 
-@Adaptive
+//@Adaptive
 public class HDFSServiceImpl implements IDdService {
 
 	@Override
