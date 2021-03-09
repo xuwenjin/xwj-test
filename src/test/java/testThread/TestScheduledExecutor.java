@@ -7,15 +7,19 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Test;
+
 /**
  * 测试延迟执行任务(只执行一次)
  */
 public class TestScheduledExecutor {
 
-	public static void main(String[] args) {
+	// 创建一个定长线程池，支持定时及周期性任务执行
+	ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
+	@Test
+	public void test1() {
 		System.out.println("创建任务时间：" + new Date());
-		// 创建一个定长线程池，支持定时及周期性任务执行
-		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 		// 建立一个延时任务，10秒钟之后执行
 		ScheduledFuture<String> futrue = executor.schedule(new MyTask("haha"), 10, TimeUnit.SECONDS);
 		try {
@@ -26,6 +30,19 @@ public class TestScheduledExecutor {
 		}
 		// 当前线程执行完之后，关闭与线程池的连接
 		executor.shutdown();
+	}
+
+	@Test
+	public void test2() {
+		// 建立一个定时任务，每隔1秒执行一次
+		executor.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("执行定时任务");
+			}
+		}, 0, 1L, TimeUnit.SECONDS);
+		for (;;)
+			;
 	}
 
 }
