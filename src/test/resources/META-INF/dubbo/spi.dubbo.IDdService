@@ -1,2 +1,3 @@
 hfds=spi.dubbo.impl.HDFSServiceImpl
 local=spi.dubbo.impl.LocalServiceImpl
+spi.dubbo.DdServiceWrapper

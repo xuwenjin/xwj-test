@@ -2,6 +2,8 @@ package spi.jdk;
 
 import java.util.ServiceLoader;
 
+import org.junit.Test;
+
 import spi.jdk.IBaseService;
 
 /**
@@ -24,7 +26,29 @@ import spi.jdk.IBaseService;
  */
 public class TestJdkSpi {
 
-	public static void main(String[] args) {
+	/**
+	 * 测试ServiceLoader.load的结果是否单例
+	 * 
+	 * 结果：
+	 * 1、每一个扩展点接口的ServiceLoader都是一个新的实例
+	 * 2、每一个扩展点接口实现类都是一个新的实例
+	 */
+	@Test
+	public void testFor() {
+		for (int i = 0; i < 5; i++) {
+			ServiceLoader<IBaseService> serviceLoader = ServiceLoader.load(IBaseService.class);
+			System.out.println(serviceLoader.hashCode());
+
+			IBaseService service = serviceLoader.iterator().next();
+			System.out.println(service.hashCode());
+
+			System.out.println("-----------------------------");
+
+		}
+	}
+
+	@Test
+	public void test1() {
 		/**
 		 * 底层原理：通过类的全路径，反射生成实例对象
 		 */

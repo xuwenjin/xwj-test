@@ -6,15 +6,21 @@ import spi.dubbo.IDdService;
 
 public class LocalServiceImpl implements IDdService {
 
-	@Override
-	public String sayHello() {
-		System.out.println("Hello LocalService");
-		return "Hello LocalService";
-	}
+//	private IBbService bbService;
+//
+//	/**
+//	* setter注入(IOC的特性)
+//	*/
+//	public void setBbService(IBbService bbService) {
+//		this.bbService = bbService;
+//	}
 
 	@Override
 	public String getScheme() {
 		System.out.println("local");
+
+//		bbService.getScheme();
+
 		return "local";
 	}
 

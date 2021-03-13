@@ -15,10 +15,43 @@ import com.alibaba.dubbo.common.extension.ExtensionLoader;
 public class TestDubboSpi {
 
 	/**
+	 * 测试ExtensionLoader.getExtensionLoader的结果是否单例
+	 * 
+	 * 结果：
+	 * 1、对于每一个扩展接口，有且仅有一个ExtensionLoader与其对应(使用了本地缓存 EXTENSION_LOADERS)
+	 * 2、对于每一个扩展点对象(接口实现类)，有且仅有一个实例对象(使用了double check(变量用volatile修饰))
+	 */
+	@Test
+	public void testFor() {
+		for (int i = 0; i < 5; i++) {
+			ExtensionLoader<IDdService> loader = ExtensionLoader.getExtensionLoader(IDdService.class);
+			System.out.println(loader.hashCode());
+
+			IDdService ddService = loader.getExtension("local");
+			System.out.println(ddService.hashCode());
+
+			System.out.println("-----------------------------");
+		}
+	}
+
+	/**
+	 * 初始化IBbService扩展对象
+	 */
+	@Test
+	public void initBbService() {
+		// 默认扩展点
+		ExtensionLoader<IBbService> loader = ExtensionLoader.getExtensionLoader(IBbService.class);
+		IBbService bbService = loader.getDefaultExtension();
+		bbService.getScheme();
+	}
+
+	/**
 	 * 测试ExtensionLoader。按需加载实现类
 	 */
 	@Test
 	public void testExtensionLoader() {
+//		initBbService();
+
 		// 默认扩展点
 		ExtensionLoader<IDdService> loader = ExtensionLoader.getExtensionLoader(IDdService.class);
 
