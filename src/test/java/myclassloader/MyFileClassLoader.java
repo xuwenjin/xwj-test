@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 /**
- * 自定义一个类加载器
+ * 自定义一个类加载器--->从指定位置加载.class文件，返回一个字节码文件对象(Class对象)
  *
  * 1、继承ClassLoader
  * 
