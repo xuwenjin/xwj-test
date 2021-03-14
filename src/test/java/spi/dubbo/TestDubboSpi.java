@@ -1,5 +1,7 @@
 package spi.dubbo;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.alibaba.dubbo.common.URL;
@@ -39,7 +41,6 @@ public class TestDubboSpi {
 	 */
 	@Test
 	public void initBbService() {
-		// 默认扩展点
 		ExtensionLoader<IBbService> loader = ExtensionLoader.getExtensionLoader(IBbService.class);
 		IBbService bbService = loader.getDefaultExtension();
 		bbService.getScheme();
@@ -50,9 +51,8 @@ public class TestDubboSpi {
 	 */
 	@Test
 	public void testExtensionLoader() {
-//		initBbService();
+		// initBbService();
 
-		// 默认扩展点
 		ExtensionLoader<IDdService> loader = ExtensionLoader.getExtensionLoader(IDdService.class);
 
 		// 使用默认扩展点。
@@ -73,7 +73,6 @@ public class TestDubboSpi {
 	 */
 	@Test
 	public void testAdaptive() {
-		// 默认扩展点
 		ExtensionLoader<IDdService> loader = ExtensionLoader.getExtensionLoader(IDdService.class);
 
 		// @Adaptive 自适应扩展 cachedAdaptiveClass
@@ -87,7 +86,6 @@ public class TestDubboSpi {
 	 */
 	@Test
 	public void testAdaptiveUrl() {
-		// 默认扩展点
 		ExtensionLoader<IDdService> loader = ExtensionLoader.getExtensionLoader(IDdService.class);
 
 		// 解析url参数(?key=value)，通过key，可以得到具体的实现类
@@ -97,6 +95,22 @@ public class TestDubboSpi {
 		URL url = URL.valueOf("dubbo://localhost:8888/test?demo=local");
 		IDdService ddService = loader.getAdaptiveExtension();
 		ddService.getScheme(url);
+	}
+
+	/**
+	 * 激活扩展@Activate：表示一个扩展是否被激活(使用)，可以放在类定义和方法上，dubbo用它在spi扩展类定义上，表示这个扩展实现激活条件和时机
+	 */
+	@Test
+	public void testActivateUrl() {
+		ExtensionLoader<IDdService> loader = ExtensionLoader.getExtensionLoader(IDdService.class);
+
+		URL url = URL.valueOf("dubbo://localhost:8888/test?demo=local");
+
+		// 如果实现类上有@Activate，与这里的group不匹配，则getActivateExtension()返回的结果为空
+		List<IDdService> ddServiceList = loader.getActivateExtension(url, new String[] {}, "hddd");
+		for (IDdService ddService : ddServiceList) {
+			ddService.getScheme(url);
+		}
 	}
 
 }
