@@ -19,11 +19,14 @@ public class TestHashMapCapacity {
 		capacityTest(5);
 		capacityTest(7);
 		capacityTest(9);
+		System.out.println("------------------------");
 		// 结论 -- 1、实际容量可能是入参容量不一致
 		// 结论 -- 2、实际容量是大于等于入参容量，并且最靠近入参容量且是2的幂次方
 
 		// 扩容测试
-		thresholdTest();
+		thresholdTest(6);
+		System.out.println("------------------------");
+		thresholdTest(16);
 		// 结论，当map.size>threshold，则会扩容，扩容的容量是之前的一倍
 	}
 
@@ -46,8 +49,8 @@ public class TestHashMapCapacity {
 	/**
 	 * 扩容测试
 	 */
-	public static void thresholdTest() throws Exception {
-		Map<String, String> map = new HashMap<>();
+	public static void thresholdTest(int initCapacity) throws Exception {
+		Map<String, String> map = new HashMap<>(initCapacity);
 
 		// 获取map扩容时临界阈值。阈值 = 容量 * 加载因子
 		// 默认容量为16，加载因子默认为0.75
@@ -66,9 +69,11 @@ public class TestHashMapCapacity {
 		// 阈值值、容量测试
 		for (int i = 1; i < 26; i++) {
 			map.put(String.valueOf(i), i + "**");
+			if (i == 0 || i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7) {
+				System.out.println("第" + i + "个对象, size为" + size.get(map) + ", 阈值为" + threshold.get(map) + ", 容量为" + capacity.invoke(map));
+			}
 			if (i == 11 || i == 12 || i == 13 || i == 23 || i == 24 || i == 25) {
-				System.out.println("第" + i + "个对象, size为" + size.get(map) + ", 阈值为" + threshold.get(map) + ", 容量为"
-						+ capacity.invoke(map));
+				System.out.println("第" + i + "个对象, size为" + size.get(map) + ", 阈值为" + threshold.get(map) + ", 容量为" + capacity.invoke(map));
 			}
 		}
 	}
