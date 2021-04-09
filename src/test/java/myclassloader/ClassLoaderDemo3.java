@@ -44,7 +44,7 @@ public class ClassLoaderDemo3 {
 		MyFileClassLoader classLoader1 = new MyFileClassLoader("D:/");
 		MyFileClassLoader classLoader2 = new MyFileClassLoader("D:/", classLoader1);
 
-		// 避开双亲委派机制，从而实现一个类被多次加载，实现热加载
+		// 打破双亲委派机制，从而实现一个类被多次加载，实现热加载
 		Class cls1 = classLoader1.findClass("jvm.Test");
 		Class cls2 = classLoader2.findClass("jvm.Test");
 		System.out.println(cls1.hashCode());
