@@ -12,8 +12,8 @@ public class ArrSort {
 	public static void main(String[] args) {
 		int[] arr = { 6, 2, 5, 9, 1, 3, 8, 7 };
 		// bubbleSort(arr);
-		bubbleSort2(arr);
-		// bubbleSort3(arr);
+//		bubbleSort2(arr);
+		 bubbleSort3(arr);
 		// int[] sortArr = mergeSort(arr);
 		// System.out.println(Arrays.toString(sortArr));
 	}
@@ -78,10 +78,10 @@ public class ArrSort {
 	 */
 	public static void bubbleSort3(int[] arr) {
 		int len = arr.length;
+		int lastChangeIndex = 0; // 记录最后一次交换值时的下标
+		int border = len - 1;
 		for (int i = 0; i < len; i++) {
 			boolean isSorted = true; // 记录本轮是否交换值了
-			int lastChangeIndex = 0; // 记录最后一次交换值时的下标
-			int border = len - 1;
 
 			// 只需要遍历从0遍历到最近一次交换值的下标即可
 			for (int j = 0; j < border; j++) {
