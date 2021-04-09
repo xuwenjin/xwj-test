@@ -33,8 +33,7 @@ public class RemoveDuplicates {
 			int num = nums[i];
 			if (num > tmpNum) {
 				tmpNum = nums[i];
-				nums[j] = num;
-				j++;
+				nums[j++] = num;
 			}
 			i++;
 		}

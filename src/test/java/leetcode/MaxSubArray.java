@@ -91,7 +91,7 @@ public class MaxSubArray {
 				// subTotal大于0，则累加
 				subTotal += nums[i];
 			} else {
-				// subTotal小于0，直接丢弃原有累计值，赋值成当前值(如果当前值小于0，小一轮还是会走到这里，进行丢弃)
+				// subTotal小于0，直接丢弃原有累计值，赋值成当前值(如果当前值小于0，下一轮还是会走到这里，进行丢弃)
 				subTotal = nums[i];
 			}
 			subMax = Math.max(subMax, subTotal);
