@@ -9,6 +9,7 @@ public class ClassLoaderDemo {
 
 	/**
 	 * 测试根类加载器---Bootstrap Class Loader
+	 * 由C++开发，是JVM虚拟机的一部分，本身不是Java类，所以打印出来是null
 	 */
 	@Test
 	public void rootClassLoader() {
